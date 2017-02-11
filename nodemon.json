@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["backup/", "static/", "views/", "gulpfile.js", "src", "dist"]
+}
