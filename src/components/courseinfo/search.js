@@ -1,7 +1,7 @@
+import { Input, Select, Button, Icon } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './search.less';
-import { Input, Select, Button, Icon } from 'antd';
 
 class Search extends React.Component {
   state = {

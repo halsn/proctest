@@ -7,7 +7,7 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 export default {
   namespace: 'app',
   state: {
-    login: false,
+    login: true,
     signup: false,
     user: {
       name: '',
@@ -22,9 +22,7 @@ export default {
   },
   subscriptions: {
     setup({ dispatch }) {
-      window.onresize = () => {
-        dispatch({ type: 'changeNavbar' });
-      };
+      window.onresize = () => dispatch({ type: 'changeNavbar' });
     }
   },
   effects: {

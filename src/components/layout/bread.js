@@ -3,10 +3,10 @@ import { Breadcrumb, Icon } from 'antd';
 import styles from './main.less';
 import { menu } from '../../utils';
 
-let pathSet = [];
+const pathSet = [];
 const getPathSet = (menuArray, parentPath) => {
   parentPath = parentPath || '/';
-  menuArray.map(item => {
+  menuArray.forEach(item => {
     pathSet[(parentPath + item.key).replace(/\//g, '-').hyphenToHump()] = {
       path: parentPath + item.key,
       name: item.name,
@@ -21,8 +21,8 @@ const getPathSet = (menuArray, parentPath) => {
 getPathSet(menu);
 
 function Bread({ location }) {
-  let pathNames = [];
-  location.pathname.substr(1).split('/').map((item, key) => {
+  const pathNames = [];
+  location.pathname.substr(1).split('/').forEach((item, key) => {
     if (key > 0) {
       pathNames.push((pathNames[key - 1] + '-' + item).hyphenToHump());
     } else {
@@ -31,13 +31,11 @@ function Bread({ location }) {
   });
   const breads = pathNames.map((item, key) => {
     if (!(item in pathSet)) {
-      item = 'Dashboard';
+      item = 'Userinfo';
     }
     return (
-      <Breadcrumb.Item key={key} {...((pathNames.length - 1 === key) || !pathSet[item].clickable) ? '' : { href: '#' + pathSet[item].path }}>
-        {pathSet[item].icon
-          ? <Icon type={pathSet[item].icon} />
-          : ''}
+      <Breadcrumb.Item key={key.toString()} >
+        {pathSet[item].icon ? <Icon type={pathSet[item].icon} /> : ''}
         <span>{pathSet[item].name}</span>
       </Breadcrumb.Item>
     );

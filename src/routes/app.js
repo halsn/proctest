@@ -59,7 +59,7 @@ function App({ children, location, dispatch, app }) {
           </aside> : ''}
           <div className={styles.main}>
             <Header {...headerProps} />
-            <Bread location={location} />
+            <Bread {...{ location }} />
             <div className={styles.container}>
               <div className={styles.content}>
                 {children}

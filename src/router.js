@@ -9,40 +9,80 @@ export default function ({ history }) {
       component: App,
       getIndexRoute(nextState, cb) {
         require.ensure([], require => {
-          cb(null, { component: require('./routes/dashboard') });
+          cb(null, { component: require('./routes/userinfo') });
         });
       },
       childRoutes: [
         {
-          path: 'dashboard',
-          name: 'dashboard',
+          path: 'userinfo',
+          name: 'userinfo',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/dashboard'));
+              cb(null, require('./routes/userinfo'));
             });
           }
         }, {
-          path: 'users',
-          name: 'users',
+          path: 'classinfo/addstudent',
+          name: 'classinfo/addstudent',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/users'));
+              cb(null, require('./routes/classinfo/addStudent'));
             });
           }
         }, {
-          path: 'ui/ico',
-          name: 'ui/ico',
+          path: 'classinfo/myclass',
+          name: 'classinfo/myclass',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/ui/ico'));
+              cb(null, require('./routes/classinfo/myClass'));
             });
           }
         }, {
-          path: 'ui/search',
-          name: 'ui/search',
+          path: 'classinfo/pubtest',
+          name: 'classinfo/pubtest',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/ui/search'));
+              cb(null, require('./routes/classinfo/pubTest'));
+            });
+          }
+        }, {
+          path: 'classinfo/testinfo',
+          name: 'classinfo/testinfo',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/classinfo/testInfo'));
+            });
+          }
+        }, {
+          path: 'courseinfo/addquiz',
+          name: 'courseinfo/addquiz',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/courseinfo/addQuiz'));
+            });
+          }
+        }, {
+          path: 'courseinfo/courselist',
+          name: 'courseinfo/courselist',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/courseinfo/courseList'));
+            });
+          }
+        }, {
+          path: 'courseinfo/mycourse',
+          name: 'courseinfo/mycourse',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/courseinfo/myCourse'));
+            });
+          }
+        }, {
+          path: 'courseinfo/quizinfo',
+          name: 'courseinfo/quizinfo',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/courseinfo/quizInfo'));
             });
           }
         }, {

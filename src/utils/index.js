@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import config from './config';
 import menu from './menu';
 import request from './request';
+import didmount from './didmount';
 import { color } from './theme';
 
 // 连字符转驼峰
@@ -44,5 +45,6 @@ module.exports = {
   menu,
   request,
   color,
-  classnames
+  classnames,
+  didmount
 };

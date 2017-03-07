@@ -1,11 +1,9 @@
 const Class = require('../../../lib/class');
 
 function get(req, res) {
-  if (!req.session.user) return res.end('登陆超时，请重新登陆');
-  const t_id = req.session.user._id;
-  Class.find({
-    ref_teacher: t_id
-  }).exec((err, data) => {
+  if (!req.session.user) return res.json({ error: '登录超时，请重新登录' });
+  const email = req.session.user.email;
+  Class.find({ ref_teacher: t_id }).exec((err, data) => {
     if (err) return res.status(500).end('未知错误');
     res.json(data).end();
   });

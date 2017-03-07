@@ -23,7 +23,7 @@ const signup = ({
   }
 
   return (
-    <div className={styles.form}>
+    <div className={styles.form} style={{ height: '380px' }}>
       <div className={styles.logo}>
         <span>ProcTest</span>
       </div>

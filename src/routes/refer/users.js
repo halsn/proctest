@@ -1,9 +1,6 @@
 import React from 'react';
 import { routerRedux } from 'dva/router';
 import { connect } from 'dva';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-import functional from 'react-functional';
 import UserList from '../components/users/list';
 import UserSearch from '../components/users/search';
 import UserModal from '../components/users/modal';
@@ -87,14 +84,11 @@ function Users({ location, dispatch, users, loading }) {
     }
   };
 
-  const UserModalGen = () =>
-    <UserModal {...userModalProps} />;
-
   return (
     <div className='content-inner'>
       <UserSearch {...userSearchProps} />
       <UserList {...userListProps} />
-      <UserModalGen />
+      <UserModal {...userModalProps} />;
     </div>
   );
 }
@@ -102,7 +96,4 @@ function Users({ location, dispatch, users, loading }) {
 Users.propTypes = {
 };
 
-Users.componentDidMount = () => NProgress.done();
-Users.shouldComponentUpdate = () => NProgress.done();
-
-export default connect(({ users, loading }) => ({ loading: loading.global, users }))(functional(Users));
+export default connect(({ users, loading }) => ({ loading: loading.global, users }))(Users);

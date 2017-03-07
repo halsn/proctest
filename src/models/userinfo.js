@@ -1,5 +1,5 @@
 export default {
-  namespace: 'dashboard',
+  namespace: 'userinfo',
   state: {
   },
   subscriptions: {

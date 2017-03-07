@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Form, Input, InputNumber, Radio, Modal } from 'antd';
+
 const FormItem = Form.Item;
 
 const formItemLayout = {
@@ -137,11 +138,6 @@ const modal = ({
 };
 
 modal.propTypes = {
-  visible: PropTypes.any,
-  form: PropTypes.object,
-  item: PropTypes.object,
-  onOk: PropTypes.func,
-  onCancel: PropTypes.func
 };
 
 export default Form.create()(modal);

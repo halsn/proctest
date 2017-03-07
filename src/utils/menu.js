@@ -1,51 +1,52 @@
 module.exports = [
   {
-    key: 'dashboard',
-    name: '主页',
-    icon: 'laptop'
-  },
-  {
-    key: 'users',
-    name: '用户管理',
+    key: 'userinfo',
+    name: '个人信息',
     icon: 'user'
   },
   {
-    key: 'ui',
-    name: 'UI组件',
-    icon: 'camera-o',
+    key: 'courseinfo',
+    name: '课程',
+    icon: 'book',
     child: [
       {
-        key: 'ico',
-        name: 'Ico 图标'
+        key: 'courselist',
+        name: '全部课程'
       },
       {
-        key: 'search',
-        name: 'Search 搜索'
+        key: 'mycourse',
+        name: '我的课程'
+      },
+      {
+        key: 'addquiz',
+        name: '录入习题'
+      },
+      {
+        key: 'quizinfo',
+        name: '查看习题'
       }
     ]
   },
   {
-    key: 'navigation',
-    name: '测试导航',
-    icon: 'setting',
+    key: 'classinfo',
+    name: '班级',
+    icon: 'team',
     child: [
       {
-        key: 'navigation1',
-        name: '二级导航1'
+        key: 'myclass',
+        name: '我的班级'
       },
       {
-        key: 'navigation2',
-        name: '二级导航2',
-        child: [
-          {
-            key: 'navigation21',
-            name: '三级导航1'
-          },
-          {
-            key: 'navigation22',
-            name: '三级导航2'
-          }
-        ]
+        key: 'addstudent',
+        name: '录入学生'
+      },
+      {
+        key: 'pubtest',
+        name: '发布测试'
+      },
+      {
+        key: 'testinfo',
+        name: '查看测试'
       }
     ]
   }
