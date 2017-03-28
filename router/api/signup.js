@@ -1,10 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Teacher = require('../../lib/teacher');
 
-module.exports.get = (req, res) => {
-  res.json({ success: 'get signup' });
-};
-
 module.exports.post = (req, res) => {
   const email = req.body.useremail;
   const pass = req.body.userpass;

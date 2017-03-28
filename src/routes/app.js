@@ -10,17 +10,17 @@ import styles from '../components/layout/main.less';
 import { classnames } from '../utils';
 import '../components/layout/common.less';
 
-function App({ children, location, dispatch, app }) {
-  const { login, signup, loginButtonLoading, signupButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible } = app;
+function App({ children, location, dispatch, app, loading }) {
+  const { login, signup, user, siderFold, darkTheme, isNavbar, menuPopoverVisible } = app;
   const loginProps = {
-    loginButtonLoading,
+    loading,
     dispatch,
     onOk(data) {
       dispatch({ type: 'app/login', payload: data });
     }
   };
   const signupProps = {
-    signupButtonLoading,
+    loading,
     dispatch,
     onOk(data) {
       dispatch({ type: 'app/signup', payload: data });
@@ -79,4 +79,4 @@ App.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-export default connect(({ app }) => ({ app }))(App);
+export default connect(({ app, loading }) => ({ app, loading: loading.global }))(App);

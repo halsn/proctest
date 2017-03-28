@@ -51,7 +51,4 @@ const list = ({
   );
 };
 
-list.propTypes = {
-};
-
 export default list;

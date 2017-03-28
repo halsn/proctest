@@ -7,14 +7,12 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 export default {
   namespace: 'app',
   state: {
-    login: true,
+    login: false,
     signup: false,
     user: {
       name: '',
       email: ''
     },
-    loginButtonLoading: false,
-    signupButtonLoading: false,
     menuPopoverVisible: false,
     siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
     darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
@@ -27,7 +25,6 @@ export default {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      yield put({ type: 'showLoginButtonLoading' });
       const { data } = yield call(login, payload);
       if (data.success) {
         yield put({
@@ -49,7 +46,6 @@ export default {
       }
     },
     *signup({ payload }, { call, put }) {
-      yield put({ type: 'showSignupButtonLoading' });
       const { data } = yield call(signup, payload);
       if (data.success) {
         yield put({ type: 'signupSuccess' });
@@ -102,8 +98,7 @@ export default {
       return {
         ...state,
         ...payload,
-        login: true,
-        loginButtonLoading: false
+        login: true
       };
     },
     signupSuccess(state) {
@@ -111,8 +106,7 @@ export default {
       return {
         ...state,
         signup: false,
-        login: false,
-        signupButtonLoading: false
+        login: false
       };
     },
     logoutSuccess(state) {
@@ -125,28 +119,14 @@ export default {
       message.error(payload.error, ERROR_MSG_DURATION);
       return {
         ...state,
-        login: false,
-        loginButtonLoading: false
+        login: false
       };
     },
     signupFail(state, { payload }) {
       message.error(payload.error, ERROR_MSG_DURATION);
       return {
         ...state,
-        signup: true,
-        signupButtonLoading: false
-      };
-    },
-    showLoginButtonLoading(state) {
-      return {
-        ...state,
-        loginButtonLoading: true
-      };
-    },
-    showSignupButtonLoading(state) {
-      return {
-        ...state,
-        signupButtonLoading: true
+        signup: true
       };
     },
     handleSwitchSider(state) {

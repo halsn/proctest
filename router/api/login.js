@@ -1,10 +1,6 @@
 const Teacher = require('../../lib/teacher');
 const bcrypt = require('bcryptjs');
 
-module.exports.get = (req, res) => {
-  res.json({ success: 'get login' });
-};
-
 module.exports.post = (req, res) => {
   const email = req.body.useremail;
   const pass = req.body.userpass;
@@ -14,10 +10,6 @@ module.exports.post = (req, res) => {
       if (error) return res.json({ error: '系统错误' });
       if (!doc) return res.json({ error: '用户不存在' });
       if (bcrypt.compareSync(pass, doc.pass)) {
-        req.session.user = {
-          email: doc.email,
-          name: doc.name
-        };
         return res.json({
           success: '登录成功',
           username: doc.name,

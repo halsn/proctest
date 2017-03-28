@@ -1,37 +1,46 @@
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const mongoExpress = require('mongo-express/middleware');
 const mongoExpressConfig = require('./lib/mongo_express_config');
+const expressValidator = require('express-validator');
 const compression = require('compression');
+const jwt = require('express-jwt');
 const path = require('path');
-const router = require('./routes/main');
+const router = require('./router');
 
 const app = express();
 
 const port = 5000;
 const host = '0.0.0.0';
 
-app.use(express.static(path.join(__dirname, '/static')));
+app.use(express.static(path.resolve('./static')));
 app.use('/mongo', mongoExpress(mongoExpressConfig));
 
 app.use(compression());
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(session({
-  resave: false, // don't save session if unmodified
-  saveUninitialized: false, // don't create session until something stored
-  secret: 'secret with promise',
-  cookie: {
-    maxAge: 1000 * 60 * 120
+
+app.use(jwt({ secret: 'hellojwt' }).unless({ path: ['/api/login', '/'] }));
+app.use(router);
+app.use(expressValidator({
+  customValidators: {
+    isArray(value) {
+      return Array.isArray(value);
+    },
+    isEmailList(value) {
+      return value.every(v => expressValidator.validator.isEmail(v));
+    }
+  },
+  customSanitizers: {
+    toArray(value) {
+      if (Array.isArray(value)) return value;
+      else return [value];
+    }
   }
 }));
 
-app.use(router);
 app.listen(port, host, () => {
   console.log(`Node app is running on http://${host}:${port}`);
 });

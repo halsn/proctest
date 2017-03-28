@@ -1,7 +1,7 @@
 import { request } from '../utils';
 
 export function login(params) {
-  return request('/login', {
+  return request('/api/login', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -11,11 +11,11 @@ export function login(params) {
 }
 
 export function logout() {
-  return request('/logout', { method: 'get' });
+  return request('/api/logout', { method: 'get' });
 }
 
 export function signup(params) {
-  return request('/signup', {
+  return request('/api/signup', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'

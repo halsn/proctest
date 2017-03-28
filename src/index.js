@@ -1,3 +1,4 @@
+/* global window */
 import dva from 'dva';
 import { message } from 'antd';
 import createLoading from 'dva-loading';

@@ -10,17 +10,15 @@ router
   .get('/', (req, res) => res.sendFile('/index.html'));
 
 router
-  .get('/login', Login.get)
-  .post('/login', Login.post);
+  .post('/api/login', Login.post);
 
 router
-  .get('/logout', Logout.get);
+  .get('/api/logout', Logout.get);
 
 router
-  .get('/signup', Signup.get)
-  .post('/signup', Signup.post);
+  .post('/api/signup', Signup.post);
 
 router
   .get('/api/course', Course.get);
 
-router.get('*', (req, res) => res.json({ error: 'error' }));
+router.get('*', (req, res) => res.redirect('/'));

@@ -5,7 +5,7 @@ import styles from './login.less';
 const FormItem = Form.Item;
 
 const signup = ({
-  signupButtonLoading,
+  loading,
   onOk,
   form: {
     getFieldDecorator,
@@ -69,7 +69,7 @@ const signup = ({
           })(<Input size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='确认密码' />)}
         </FormItem>
         <Row>
-          <Button type='primary' size='large' onClick={handleOk} loading={signupButtonLoading}>
+          <Button type='primary' size='large' onClick={handleOk} loading={loading}>
             注册
           </Button>
           <br />

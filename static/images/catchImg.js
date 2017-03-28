@@ -6,10 +6,10 @@ var getURL = (baseURL) => {
     https.get(baseURL, res => {
       var data = '';
       res.setEncoding('utf8');
-      res.on('data', d => data += d);
+      res.on('data', (d) => (data += d));
       res.on('end', () => {
-        var url = data.match(/https.+\"/)[0];
-        resolve(url.slice(0, url.length - 1).replace(/amp\;/g, ''));
+        var url = data.match(/https.+"/)[0];
+        resolve(url.slice(0, url.length - 1).replace(/amp;/g, ''));
       });
       res.on('error', err => reject(err));
     }).on('error', err => reject(err));
@@ -19,6 +19,7 @@ var getURL = (baseURL) => {
 var getImage = (imgURL, file) => {
   return new Promise((resolve, reject) => {
     https.get(imgURL, res => {
+      console.log(`start download img from ${imgURL}!`);
       res.pipe(fs.createWriteStream(file));
       res.on('error', err => reject(err));
       resolve('end');
@@ -26,14 +27,14 @@ var getImage = (imgURL, file) => {
   });
 };
 
-var getURLs = Array(7).fill().map(e => getURL('https://source.unsplash.com/category/nature/1080x720'));
+var getURLs = Array(7).fill().map(() => getURL('https://source.unsplash.com/category/nature/1080x720'));
 
 Promise.all(getURLs)
   .then(urls => {
-    var imgs = urls.map((url, idx) => getImage(url, `${idx}.jpg`));
+    var imgs = urls.map((url, idx) => getImage(url, `${idx}-img.jpg`));
     return Promise.all(imgs);
   })
   .then(() => {
-    console.log('download finished!')
+    console.log('download finished!');
   })
   .catch(err => console.log(err));
