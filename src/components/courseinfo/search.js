@@ -1,7 +1,7 @@
-import { Input, Select, Button, Icon } from 'antd';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import styles from './search.less';
+import { Input, Select, Button, Icon } from 'antd'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import styles from './search.less'
 
 class Search extends React.Component {
   state = {
@@ -11,34 +11,34 @@ class Search extends React.Component {
   handleSearch = () => {
     const data = {
       keyword: ReactDOM.findDOMNode(this.refs.searchInput).value
-    };
-    if (this.props.select) {
-      data.field = this.state.selectValue;
     }
-    this.props.onSearch && this.props.onSearch(data);
+    if (this.props.select) {
+      data.field = this.state.selectValue
+    }
+    this.props.onSearch && this.props.onSearch(data)
   }
   handleInputChange = e => {
     this.setState({
       ...this.state,
       clearVisible: e.target.value !== ''
-    });
+    })
   }
   handeleSelectChange = value => {
     this.setState({
       ...this.state,
       selectValue: value
-    });
+    })
   }
   handleClearInput = () => {
-    ReactDOM.findDOMNode(this.refs.searchInput).value = '';
+    ReactDOM.findDOMNode(this.refs.searchInput).value = ''
     this.setState({
       clearVisible: false
-    });
-    this.handleSearch();
+    })
+    this.handleSearch()
   }
   render() {
-    const { size, select, selectOptions, selectProps, style, keyword } = this.props;
-    const { clearVisible } = this.state;
+    const { size, select, selectOptions, selectProps, style, keyword } = this.props
+    const { clearVisible } = this.state
     return (
       <Input.Group compact size={size} className={styles.search} style={style}>
         {select && <Select ref='searchSelect' onChange={this.handeleSelectChange} size={size} {...selectProps}>
@@ -48,8 +48,8 @@ class Search extends React.Component {
         <Button size={size} type='primary' onClick={this.handleSearch}>搜索</Button>
         {clearVisible && <Icon type='cross' onClick={this.handleClearInput} />}
       </Input.Group>
-    );
+    )
   }
 }
 
-export default Search;
+export default Search

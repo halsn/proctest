@@ -1,28 +1,28 @@
 /* global window */
-import dva from 'dva';
-import { message } from 'antd';
-import createLoading from 'dva-loading';
-import './index.html';
+import dva from 'dva'
+import { message } from 'antd'
+import createLoading from 'dva-loading'
+import './index.html'
 
-const ERROR_MSG_DURATION = 3; // 3 秒
+const ERROR_MSG_DURATION = 3 // 3 秒
 // 1. Initialize
 const app = dva({
   onError(e) {
-    message.error(e.message, ERROR_MSG_DURATION);
+    message.error(e.message, ERROR_MSG_DURATION)
   }
-});
+})
 
-app.use(createLoading());
+app.use(createLoading())
 
 // 2. Model
 
-app.model(require('./models/app'));
-app.model(require('./models/userinfo'));
-app.model(require('./models/courseinfo/courseList'));
-app.model(require('./models/courseinfo/addQuiz'));
+app.model(require('./models/app.model'))
+app.model(require('./models/userinfo.model'))
+app.model(require('./models/courseinfo/courseList.model'))
+app.model(require('./models/courseinfo/addQuiz.model'))
 
 // 3. Router
-app.router(require('./router'));
+app.router(require('./router'))
 
 // 4. Start
-app.start('#root');
+app.start('#root')

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Router } from 'dva/router';
-import App from './routes/app';
+import React from 'react'
+import { Router } from 'dva/router'
+import App from './routes/app'
 
 export default function ({ history }) {
   const routes = [
@@ -9,8 +9,8 @@ export default function ({ history }) {
       component: App,
       getIndexRoute(nextState, cb) {
         require.ensure([], require => {
-          cb(null, { component: require('./routes/userinfo') });
-        });
+          cb(null, { component: require('./routes/userinfo') })
+        })
       },
       childRoutes: [
         {
@@ -18,85 +18,93 @@ export default function ({ history }) {
           name: 'userinfo',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/userinfo'));
-            });
+              cb(null, require('./routes/userinfo'))
+            })
+          }
+        }, {
+          path: 'cloudquizs',
+          name: 'cloudquizs',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/cloudquizs'))
+            })
           }
         }, {
           path: 'classinfo/addstudent',
           name: 'classinfo/addstudent',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/classinfo/addStudent'));
-            });
+              cb(null, require('./routes/classinfo/addStudent'))
+            })
           }
         }, {
           path: 'classinfo/myclass',
           name: 'classinfo/myclass',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/classinfo/myClass'));
-            });
+              cb(null, require('./routes/classinfo/myClass'))
+            })
           }
         }, {
           path: 'classinfo/pubtest',
           name: 'classinfo/pubtest',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/classinfo/pubTest'));
-            });
+              cb(null, require('./routes/classinfo/pubTest'))
+            })
           }
         }, {
           path: 'classinfo/testinfo',
           name: 'classinfo/testinfo',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/classinfo/testInfo'));
-            });
+              cb(null, require('./routes/classinfo/testInfo'))
+            })
           }
         }, {
           path: 'courseinfo/addquiz',
           name: 'courseinfo/addquiz',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/courseinfo/addQuiz'));
-            });
+              cb(null, require('./routes/courseinfo/addQuiz'))
+            })
           }
         }, {
           path: 'courseinfo/courselist',
           name: 'courseinfo/courselist',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/courseinfo/courseList'));
-            });
+              cb(null, require('./routes/courseinfo/courseList'))
+            })
           }
         }, {
           path: 'courseinfo/mycourse',
           name: 'courseinfo/mycourse',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/courseinfo/myCourse'));
-            });
+              cb(null, require('./routes/courseinfo/myCourse'))
+            })
           }
         }, {
           path: 'courseinfo/quizinfo',
           name: 'courseinfo/quizinfo',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/courseinfo/quizInfo'));
-            });
+              cb(null, require('./routes/courseinfo/quizInfo'))
+            })
           }
         }, {
           path: '*',
           name: 'error',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/error'));
-            });
+              cb(null, require('./routes/error'))
+            })
           }
         }
       ]
     }
-  ];
+  ]
 
-  return <Router history={history} routes={routes} />;
+  return <Router history={history} routes={routes} />
 }

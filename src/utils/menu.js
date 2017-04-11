@@ -1,18 +1,19 @@
 module.exports = [
   {
     key: 'userinfo',
-    name: '个人信息',
+    name: '个人中心',
     icon: 'user'
+  },
+  {
+    key: 'cloudquizs',
+    name: '公共习题',
+    icon: 'cloud-o'
   },
   {
     key: 'courseinfo',
     name: '课程',
     icon: 'book',
     child: [
-      {
-        key: 'courselist',
-        name: '全部课程'
-      },
       {
         key: 'mycourse',
         name: '我的课程'
@@ -50,4 +51,4 @@ module.exports = [
       }
     ]
   }
-];
+]

@@ -1,24 +1,36 @@
-const router = require('express').Router();
-const Login = require('./api/login');
-const Logout = require('./api/logout');
-const Signup = require('./api/signup');
-const Course = require('./api/course');
+const path = require('path')
+const router = require('express').Router()
+const Login = require('./api/login')
+const Signup = require('./api/signup')
+const Course = require('./api/course')
+const QR = require('./api/qr.js')
+const jwt = require('express-jwt')
 
-module.exports = router;
+const config = require(path.resolve('./config'))
+const jwtAuth = jwt({ secret: config.jwt.secret })
 
-router
-  .get('/', (req, res) => res.sendFile('/index.html'));
-
-router
-  .post('/api/login', Login.post);
-
-router
-  .get('/api/logout', Logout.get);
+module.exports = router
 
 router
-  .post('/api/signup', Signup.post);
+  .route('/')
+  .get((req, res) => res.sendFile('/index.html'))
 
 router
-  .get('/api/course', Course.get);
+  .route('/api/login')
+  .post(Login.post)
 
-router.get('*', (req, res) => res.redirect('/'));
+router
+  .route('/api/signup')
+  .post(Signup.post)
+
+router
+  .route('/api/course')
+  .all(jwtAuth)
+  .get(Course.get)
+
+router
+  .route('/api/qr')
+  .all(jwtAuth)
+  .get(QR.get)
+
+router.get('*', (req, res) => res.redirect('/'))

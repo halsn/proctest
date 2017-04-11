@@ -1,20 +1,20 @@
-import React from 'react';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-import { Menu, Icon } from 'antd';
-import { Link } from 'dva/router';
-import { menu } from '../../utils';
+import React from 'react'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import { Menu, Icon } from 'antd'
+import { Link } from 'dva/router'
+import { menu } from '../../utils'
 
-const topMenus = menu.map(item => item.key);
+const topMenus = menu.map(item => item.key)
 const getMenus = (menuArray, siderFold, parentPath) => {
-  parentPath = parentPath || '/';
+  parentPath = parentPath || '/'
   return menuArray.map(item => {
     if (item.child) {
       return (
         <Menu.SubMenu key={item.key} title={<span>{item.icon ? <Icon type={item.icon} /> : ''}{siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}</span>}>
           {getMenus(item.child, siderFold, parentPath + item.key + '/')}
         </Menu.SubMenu>
-      );
+      )
     } else {
       return (
         <Menu.Item key={item.key}>
@@ -23,13 +23,13 @@ const getMenus = (menuArray, siderFold, parentPath) => {
             {siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}
           </Link>
         </Menu.Item>
-      );
+      )
     }
-  });
-};
+  })
+}
 
 function Menus({ siderFold, darkTheme, location, handleClickNavMenu }) {
-  const menuItems = getMenus(menu, siderFold);
+  const menuItems = getMenus(menu, siderFold)
   return (
     <Menu
       mode={siderFold ? 'vertical' : 'inline'}
@@ -40,7 +40,7 @@ function Menus({ siderFold, darkTheme, location, handleClickNavMenu }) {
     >
       {menuItems}
     </Menu>
-  );
+  )
 }
 
-export default Menus;
+export default Menus

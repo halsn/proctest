@@ -1,9 +1,8 @@
-import React from 'react';
-import { connect } from 'dva';
-import { Row, Col, Card } from 'antd';
-import styles from './userinfo.less';
-import { didmount, color } from '../utils';
-import NumberCard from '../components/userinfo/numberCard';
+import React from 'react'
+import { Row, Col, Card } from 'antd'
+import styles from './userinfo.less'
+import { didmount, color } from '../utils'
+import NumberCard from '../components/userinfo/numberCard'
 
 //const bodyStyle = {
   //bodyStyle: {
@@ -18,7 +17,7 @@ const Userinfo = () => {
     color: 'pink',
     title: '课程总数',
     number: 2
-  };
+  }
   return (
     <Row gutter={24}>
       <Col lg={12} md={24}>
@@ -82,9 +81,7 @@ const Userinfo = () => {
         </Row>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-Userinfo.propTypes = {};
-
-export default connect(({ userinfo }) => ({ userinfo }))(didmount(Userinfo));
+export default didmount(Userinfo)

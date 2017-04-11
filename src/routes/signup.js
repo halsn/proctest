@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button, Row, Form, Input, Icon } from 'antd';
-import styles from './login.less';
+import React from 'react'
+import { Button, Row, Form, Input, Icon } from 'antd'
+import styles from './login.less'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 const signup = ({
   loading,
@@ -16,10 +16,10 @@ const signup = ({
   function handleOk() {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
-        return;
+        return
       }
-      onOk(values);
-    });
+      onOk(values)
+    })
   }
 
   return (
@@ -74,13 +74,11 @@ const signup = ({
           </Button>
           <br />
           <br />
-          <a onClick={() => { dispatch({ type: 'app/showLogin' }); }} style={{ 'float': 'right' }}>登录</a>
+          <a onClick={() => { dispatch({ type: 'app/showLogin' }) }} style={{ 'float': 'right' }}>登录</a>
         </Row>
       </form>
     </div>
-  );
-};
+  )
+}
 
-signup.propTypes = {};
-
-export default Form.create()(signup);
+export default Form.create()(signup)

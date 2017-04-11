@@ -1,19 +1,19 @@
-import React from 'react';
-import { Menu, Icon, Popover } from 'antd';
-import styles from './main.less';
-import Menus from './menu';
+import React from 'react'
+import { Menu, Icon, Popover } from 'antd'
+import styles from './main.less'
+import Menus from './menu'
 
-const SubMenu = Menu.SubMenu;
+const SubMenu = Menu.SubMenu
 
 function Header({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVisible, location, switchMenuPopover }) {
-  const handleClickMenu = e => e.key === 'logout' && logout();
+  const handleClickMenu = e => e.key === 'logout' && logout()
   const menusProps = {
     siderFold: false,
     darkTheme: false,
     isNavbar,
     handleClickNavMenu: switchMenuPopover,
     location
-  };
+  }
   return (
     <div className={styles.header}>
       {isNavbar
@@ -31,7 +31,7 @@ function Header({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
           style={{
             float: 'right'
           }}
-          title={<span> <Icon type='user' /> {user.email} </span>}
+          title={<span> <Icon type='user' /> {user} </span>}
         >
           <Menu.Item key='logout' style={{ textAlign: 'center' }}>
             <a>注销</a>
@@ -39,7 +39,7 @@ function Header({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
         </SubMenu>
       </Menu>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header
