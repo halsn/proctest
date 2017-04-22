@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const mongoExpress = require('mongo-express/middleware')
+const mongoExpress = require('mongo-express/lib/middleware')
 const mongoExpressConfig = require('./lib/mongo_express_config')
 const expressValidator = require('express-validator')
 const compression = require('compression')

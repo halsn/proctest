@@ -98,6 +98,7 @@ export default {
     loginFail(state, { payload }) {
       if (payload.tokenFail) {
         message.error(payload.tokenFail, ERROR_MSG_DURATION)
+        localStorage.setItem('jwttoken', '')
       } else {
         message.error(payload.error, ERROR_MSG_DURATION)
       }

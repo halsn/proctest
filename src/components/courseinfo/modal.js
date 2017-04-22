@@ -137,7 +137,4 @@ const modal = ({
   );
 };
 
-modal.propTypes = {
-};
-
 export default Form.create()(modal);

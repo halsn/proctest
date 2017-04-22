@@ -5,8 +5,8 @@ module.exports = [
     icon: 'user'
   },
   {
-    key: 'cloudquizs',
-    name: '公共习题',
+    key: 'cloud',
+    name: '公共课程',
     icon: 'cloud-o'
   },
   {

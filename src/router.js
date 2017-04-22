@@ -22,11 +22,11 @@ export default function ({ history }) {
             })
           }
         }, {
-          path: 'cloudquizs',
-          name: 'cloudquizs',
+          path: 'cloud',
+          name: 'cloud',
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/cloudquizs'))
+              cb(null, require('./routes/cloud'))
             })
           }
         }, {
@@ -67,14 +67,6 @@ export default function ({ history }) {
           getComponent(nextState, cb) {
             require.ensure([], require => {
               cb(null, require('./routes/courseinfo/addQuiz'))
-            })
-          }
-        }, {
-          path: 'courseinfo/courselist',
-          name: 'courseinfo/courselist',
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              cb(null, require('./routes/courseinfo/courseList'))
             })
           }
         }, {
