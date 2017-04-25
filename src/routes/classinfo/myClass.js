@@ -22,8 +22,8 @@ class myClass extends React.Component {
           title='添加班级'
           wrapClassName='vertical-center-modal'
           visible={this.state.modalVisible}
-          onOk={() => { this.setState({ modalVisible: false })}}
-          onCancel={() => { this.setState({ modalVisible: false })}}
+          onOk={() => { this.setState({ modalVisible: false }) }}
+          onCancel={() => { this.setState({ modalVisible: false }) }}
         >
           <Select placeholder='选择课程' style={{ width: '100%' }}>
             <Option value='1'>计算机</Option>
@@ -54,7 +54,7 @@ class myClass extends React.Component {
         </Modal>
         <Row gutter={36}>
           <Col lg={8} style={{ marginBottom: 12 }}>
-            <Card title='计算机科学201301' extra={<a href='#'>删除</a>}>
+            <Card title='计算机科学201301' extra={<a>删除</a>}>
               <p>计算机科学2013级同学的课程，主要教学</p>
             </Card>
           </Col>
