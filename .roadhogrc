@@ -1,6 +1,5 @@
 {
-  "entry": "src/opentest.js",
-  /* "multipage": true, */
+  "entry": "src/index.js",
   "disableCSSModules": false,
   "publicPath": "/",
   "autoprefixer": {
