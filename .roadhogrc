@@ -1,5 +1,6 @@
 {
-  "entry": "src/index.js",
+  "entry": "src/pages/*.js",
+  "multipage": true,
   "disableCSSModules": false,
   "publicPath": "/",
   "autoprefixer": {

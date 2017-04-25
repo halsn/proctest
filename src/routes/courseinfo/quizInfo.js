@@ -1,5 +1,6 @@
 import React from 'react'
-import { Table, Row, Col, Select } from 'antd'
+import { connect } from 'dva'
+import { Spin, Button, Table, Row, Col, Select } from 'antd'
 import { didmount } from '../../utils'
 
 const Option = Select.Option
@@ -10,8 +11,17 @@ class quizInfo extends React.Component {
     didmount(this)
   }
   state = {
+    courseId: ''
   }
   render() {
+    const { quizinfo, loading, dispatch } = this.props
+    const { courseList, quizList } = quizinfo
+    const dataSource = quizList.map(q => ({
+      genre: q.genre,
+      describe: q.describe.content,
+      selections: q.selections.join('， '),
+      answers: q.answers.join('， ')
+    }))
     const columns = [
       {
         title: '题型',
@@ -35,28 +45,42 @@ class quizInfo extends React.Component {
         width: '25%'
       }
     ]
+    const get = () => {
+      const courseId = this.state.courseId
+      if (!courseId) return
+      dispatch({ type: 'quizinfo/get', payload: { courseId } })
+    }
+    const change = (values) => {
+      this.setState({ courseId: values })
+    }
 
     return (
       <div>
         <Row>
           <Col>
             <Select
-              showSearch
+              onChange={change}
               style={{ width: 100 }}
               placeholder='选择课程'
             >
-              <Option value='jack'>Jack</Option>
-              <Option value='lucy'>Lucy</Option>
-              <Option value='tom'>Tom</Option>
+              {courseList.map(c => (
+                <Option key={c._id} value={c._id}>{c.name}</Option>
+              ))}
             </Select>
+            <Button onClick={get} type='primary' style={{ marginLeft: 10 }}>查询</Button>
           </Col>
         </Row>
         <Row>
           <Col lg={24}>
-            <Table
-              columns={columns}
-              scroll={{ x: 1200 }}
-            />
+            <div>
+              <Spin spinning={loading}>
+                <Table
+                  columns={columns}
+                  scroll={{ x: 1200 }}
+                  dataSource={dataSource}
+                />
+              </Spin>
+            </div>
           </Col>
         </Row>
       </div>
@@ -64,4 +88,4 @@ class quizInfo extends React.Component {
   }
 }
 
-export default quizInfo
+export default connect(({ quizinfo, loading }) => ({ quizinfo, loading: loading.global }))(quizInfo)

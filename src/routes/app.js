@@ -10,7 +10,7 @@ import styles from '../components/layout/main.less'
 import { classnames, didmount } from '../utils'
 import '../components/layout/common.less'
 
-function App({ children, location, dispatch, app, loading }) {
+function App({ history, children, location, dispatch, app, loading }) {
   const { showLogin, showSignup, username, siderFold, darkTheme, isNavbar, menuPopoverVisible } = app
 
   const loginProps = {
@@ -39,7 +39,7 @@ function App({ children, location, dispatch, app, loading }) {
       dispatch({ type: 'app/switchMenuPopver' })
     },
     logout() {
-      dispatch({ type: 'app/logout' })
+      dispatch({ type: 'app/logout', history })
     },
     switchSider() {
       dispatch({ type: 'app/switchSider' })

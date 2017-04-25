@@ -45,8 +45,9 @@ export default {
         yield put({ type: 'signupFail', payload: data })
       }
     },
-    *logout({ payload }, { put }) {
-      localStorage.setItem('jwttoken', '')
+    *logout({ history }, { put }) {
+      localStorage.removeItem('jwttoken')
+      yield history.push('/')
       yield put({ type: 'showLogin' })
     },
     *switchSider({ payload }, { put }) {

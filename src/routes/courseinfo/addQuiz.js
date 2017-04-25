@@ -2,13 +2,13 @@
 import React from 'react'
 import * as XLSX from 'ts-xlsx'
 import { connect } from 'dva'
-import { Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
+import { Spin, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
 import { didmount } from '../../utils'
 
 const Option = Select.Option
 
-const addQuiz = ({ addquiz, dispatch }) => {
-  const { tableData: dataSource } = addquiz
+const addQuiz = ({ loading, addquiz, dispatch }) => {
+  const { sheetData, quizs, courseList, selectCourse } = addquiz
   const read = file => {
     const reader = new FileReader()
     reader.readAsBinaryString(file)
@@ -51,7 +51,8 @@ const addQuiz = ({ addquiz, dispatch }) => {
         selections: el.选项,
         answers: el.参考答案
       }))
-      dispatch({ type: 'addquiz/readFile', payload: source })
+      dispatch({ type: 'addquiz/changeSheetDate', sheetData })
+      dispatch({ type: 'addquiz/readFile', quizs: source })
     }
     return false
   }
@@ -78,6 +79,13 @@ const addQuiz = ({ addquiz, dispatch }) => {
       width: '25%'
     }
   ]
+  const put = () => {
+    if (!quizs.length || !selectCourse) return
+    dispatch({ type: 'addquiz/put', payload: { sheetData, selectCourse } })
+  }
+  const change = (values) => {
+    dispatch({ type: 'addquiz/change', selectCourse: values })
+  }
   return (
     <div>
       <Row type='flex'>
@@ -87,26 +95,31 @@ const addQuiz = ({ addquiz, dispatch }) => {
               <Icon type='upload' />点击选择文件
             </Button>
           </Upload>
-          <Select style={{ width: 120 }} placeholder='选择课程'>
-            <Option value='1'>Jamy</Option>
-            <Option value='2'>Jamy</Option>
+          <Select onChange={change} style={{ width: 120, marginTop: 10 }} placeholder='选择课程'>
+            {courseList.map(c => (
+              <Option key={c._id} value={c._id}>{c.name}</Option>
+            ))}
           </Select>
         </Col>
         <Col style={{ width: 60 }}>
-          <Button type='primary'>录入</Button>
+          <Button onClick={put} type='primary'>录入</Button>
         </Col>
       </Row>
       <Row>
         <Col lg={24}>
-          <Table
-            columns={columns}
-            scroll={{ x: 1200 }}
-            dataSource={dataSource}
-          />
+          <div>
+            <Spin spinning={loading}>
+              <Table
+                columns={columns}
+                scroll={{ x: 1200 }}
+                dataSource={quizs}
+              />
+            </Spin>
+          </div>
         </Col>
       </Row>
     </div>
   )
 }
 
-export default connect(({ addquiz }) => ({ addquiz }))(didmount(addQuiz))
+export default connect(({ addquiz, loading }) => ({ addquiz, loading: loading.global }))(didmount(addQuiz))

@@ -6,7 +6,7 @@ module.exports = [
   },
   {
     key: 'cloud',
-    name: '公共课程',
+    name: '云端课程',
     icon: 'cloud-o'
   },
   {
@@ -50,5 +50,10 @@ module.exports = [
         name: '查看测试'
       }
     ]
+  },
+  {
+    key: 'setting',
+    name: '设置',
+    icon: 'setting'
   }
 ]

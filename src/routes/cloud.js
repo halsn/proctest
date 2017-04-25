@@ -1,69 +1,59 @@
+/* global localStorage document window */
 import React from 'react'
 import { connect } from 'dva'
-import { Row, Col, Select, Table, Button } from 'antd'
+import { Spin, Row, Col, Select, Table, Button } from 'antd'
 import Search from '../components/courseinfo/search'
 import styles from '../components/courseinfo/list.less'
+import { didmount } from '../utils'
 
 const Option = Select.Option
-
 
 const columns = [
   {
     title: '课程名称',
-    dataIndex: 'courseName',
-    key: 'courseName'
+    dataIndex: 'name',
+    key: 'name'
   }, {
     title: '创建者',
     dataIndex: 'creater',
     key: 'creater'
   }, {
     title: '课程简介',
-    dataIndex: 'courseinfo',
-    key: 'courseinfo'
+    dataIndex: 'brief',
+    key: 'brief'
   }, {
     title: '使用人数',
-    dataIndex: 'usercount',
-    key: 'usercount'
+    dataIndex: 'userCount',
+    key: 'userCount'
   }
 ]
 
-const obj = {
-  key: '1',
-  single: 5,
-  multiple: 5,
-  estimation: 5,
-  essay: 5,
-  total: 11
-}
-
-const dataSource = Array(100).fill(obj).map((el, idx) => ({ ...el, key: idx, single: idx, courseName: idx % 2 === 0 ? 'fff' : 'ddd' }))
-
 class Cloud extends React.Component {
-  state = {
-    selectedRowKeys: [],
-    originData: dataSource,
-    displayData: dataSource
+  constructor(props) {
+    super(props)
+    didmount(this)
   }
   render() {
-    const { selectedRowKeys } = this.state
+    const { loading, dispatch, app, cloud } = this.props
+    const { username } = app
+    const { displayData, courseList, selectedRowKeys } = cloud
     const rowSelection = {
       selectedRowKeys,
       onChange: (selectedRowKeys) => {
-        this.setState({ selectedRowKeys })
-      }
+        dispatch({ type: 'cloud/select', selectedRowKeys })
+      },
+      getCheckboxProps: record => ({
+        disabled: record.creater === username
+      })
     }
     const search = (value) => {
       const { keyword } = value
-      const { originData } = this.state
-      if (!keyword) {
-        this.setState({ displayData: originData })
-        return
-      }
-      const matchData = originData.filter(d => d.courseName === keyword)
-      this.setState({ displayData: matchData })
+      dispatch({ type: 'cloud/search', keyword })
     }
     const addToMyCourse = () => {
-      console.log(selectedRowKeys)
+      if (!selectedRowKeys.length) return
+      const data = selectedRowKeys.map(idx => courseList[idx])
+      dispatch({ type: 'cloud/put', payload: data })
     }
     return (
       <div className='content-inner'>
@@ -79,21 +69,25 @@ class Cloud extends React.Component {
         </Row>
         <Row gutter={24}>
           <Col lg={2} style={{ marginBottom: 16 }}>
-            <Button type='primary' onClick={addToMyCourse}>添加至我的课程</Button>
+            <Button loading={loading} type='primary' onClick={addToMyCourse}>添加至我的课程</Button>
           </Col>
         </Row>
         <Row gutter={24}>
-          <Table
-            className={styles.table}
-            scroll={{ x: 1200 }}
-            columns={columns}
-            rowSelection={rowSelection}
-            dataSource={this.state.displayData}
-          />
+          <div>
+            <Spin spinning={loading}>
+              <Table
+                className={styles.table}
+                scroll={{ x: 1200 }}
+                columns={columns}
+                rowSelection={rowSelection}
+                dataSource={displayData}
+              />
+            </Spin>
+          </div>
         </Row>
       </div>
     )
   }
 }
 
-export default connect(({ app }) => ({ app }))(Cloud)
+export default connect(({ app, cloud, loading }) => ({ app, cloud, loading: loading.global }))(Cloud)

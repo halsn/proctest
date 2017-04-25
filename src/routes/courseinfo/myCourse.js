@@ -1,5 +1,6 @@
 import React from 'react'
-import { Input, Form, Modal, Button, Card, Row, Col } from 'antd'
+import { connect } from 'dva'
+import { Spin, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
 import { didmount } from '../../utils'
 
 const FormItem = Form.Item
@@ -10,16 +11,49 @@ class myCourse extends React.Component {
     didmount(this)
   }
   state = {
-    modalVisible: false
+    modalVisible: false,
+    updateCourse: {}
   }
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { setFieldsValue, getFieldDecorator, validateFieldsAndScroll } = this.props.form
+    const { mycourse, dispatch, loading } = this.props
+    const { myCourses, otherCourses, showModal, showUpdateModal } = mycourse
+    const putNewCourse = () => {
+      validateFieldsAndScroll((errors, values) => {
+        const { coursename, coursebrief } = values
+        if (!coursename || !coursebrief) return
+        const payload = {
+          name: coursename,
+          brief: coursebrief
+        }
+        dispatch({ type: 'mycourse/put', payload })
+      })
+    }
+    const deleteCourse = (id) => {
+      dispatch({ type: 'mycourse/del', payload: { id } })
+    }
+    const openUpdateModal = (course) => {
+      dispatch({ type: 'mycourse/showUpdateModal' })
+      this.state.updateCourse = course
+      const { name: updatecoursename, brief: updatecoursebrief } = this.state.updateCourse
+      setFieldsValue({ updatecoursename, updatecoursebrief })
+    }
+    const update = () => {
+      validateFieldsAndScroll((errors, values) => {
+        const { updatecoursename, updatecoursebrief } = values
+        if (!updatecoursename || !updatecoursebrief) return
+        const payload = {
+          id: this.state.updateCourse._id,
+          name: updatecoursename,
+          brief: updatecoursebrief
+        }
+        dispatch({ type: 'mycourse/post', payload })
+      })
+    }
     return (
       <div>
-        <Row>
-        </Row>
         <Button
-          onClick={() => { this.setState({ modalVisible: true }) }}
+          onClick={() => { dispatch({ type: 'mycourse/openModal' }) }}
           type='primary'
           style={{ marginBottom: 12 }}
         >添加课程</Button>
@@ -27,15 +61,17 @@ class myCourse extends React.Component {
           title='添加课程'
           wrapClassName='vertical-center-modal'
           style={{ top: 20 }}
-          visible={this.state.modalVisible}
-          onOk={() => { this.setState({ modalVisible: false })}}
-          onCancel={() => { this.setState({ modalVisible: false })}}
+          visible={showModal}
+          onOk={putNewCourse}
+          onCancel={() => { dispatch({ type: 'mycourse/hideModal' }) }}
+          confirmLoading={loading}
         >
           <Form layout='horizontal'>
             <FormItem label='名称：' hasFeedback>
               {getFieldDecorator('coursename', {
                 rules: [
                   {
+                    whitespace: true,
                     required: true,
                     message: '不能为空'
                   }
@@ -47,32 +83,74 @@ class myCourse extends React.Component {
                 rules: [
                   {
                     required: true,
+                    whitespace: true,
+                    message: '不能为空'
+                  }
+                ]
+              })(<Input type='textarea' />)}
+            </FormItem>
+          </Form>
+        </Modal>
+        <Modal
+          title='修改课程'
+          wrapClassName='vertical-center-modal'
+          style={{ top: 20 }}
+          visible={showUpdateModal}
+          onOk={update}
+          onCancel={() => { dispatch({ type: 'mycourse/hideUpdateModal' }) }}
+          confirmLoading={loading}
+        >
+          <Form layout='horizontal'>
+            <FormItem label='名称：' hasFeedback>
+              {getFieldDecorator('updatecoursename', {
+                rules: [
+                  {
+                    whitespace: true,
+                    required: true,
                     message: '不能为空'
                   }
                 ]
               })(<Input />)}
             </FormItem>
+            <FormItem label='简介：' hasFeedback>
+              {getFieldDecorator('updatecoursebrief', {
+                rules: [
+                  {
+                    required: true,
+                    whitespace: true,
+                    message: '不能为空'
+                  }
+                ]
+              })(<Input type='textarea' />)}
+            </FormItem>
           </Form>
         </Modal>
-        <Row gutter={36}>
-          <p>我创建的课程</p>
-          <Col lg={8} style={{ marginBottom: 12 }}>
-            <Card title='计算机基础' extra={<a href='#'>删除</a>}>
-              <p>简介：计算机基础而已，没什么大不了的</p>
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={36}>
-          <p>公共课程</p>
-          <Col lg={8} style={{ marginBottom: 12 }}>
-            <Card title='计算机基础' extra={<a href='#'>删除</a>}>
-              <p>创建者：fff</p>
-              <p>简介：计算机基础而已，没什么大不了的</p>
-            </Card>
-          </Col>
-        </Row>
+        <div>
+          <Spin spinning={loading}>
+            <Row gutter={36}>
+              {myCourses.map(c => (
+                <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>
+                  <Card title={c.name} extra={<a onClick={() => deleteCourse(c._id)}>删除</a>}>
+                    <p>简介：{c.brief}</p>
+                    <p>习题总数：{c.quizs.length}</p>
+                    <Button onClick={() => openUpdateModal(c)} style={{ float: 'right', marginBottom: 10, marginRight: -15 }}>修改</Button>
+                  </Card>
+                </Col>
+              ))}
+              {otherCourses.map(c => (
+                <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>
+                  <Card title={c.name} extra={<a onClick={() => deleteCourse(c._id)}>删除</a>}>
+                    <p>创建者：{c.creater}</p>
+                    <p>简介：{c.brief}</p>
+                    <p>习题总数：{c.quizs.length}</p>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </Spin>
+        </div>
       </div>
     )
   }
 }
-export default Form.create()(myCourse)
+export default connect(({ mycourse, loading }) => ({ mycourse, loading: loading.global }))(Form.create()(myCourse))
