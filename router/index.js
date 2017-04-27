@@ -7,6 +7,8 @@ const Cloud = require('./api/cloud')
 const Quiz = require('./api/quiz.js')
 const QuizInfo = require('./api/quizinfo.js')
 const myClass = require('./api/myclass.js')
+const Student = require('./api/student.js')
+const Test = require('./api/test.js')
 const QR = require('./api/qr.js')
 const openTest = require('./api/opentest.js')
 const jwt = require('express-jwt')
@@ -97,6 +99,34 @@ router
   .put(myClass.put)
   .post(myClass.post)
   .delete(myClass.del)
+
+router
+  .route('/api/student')
+  .all(jwtAuth, (err, req, res, next) => {
+    if (err.status === 401) {
+      return res.json({ error: '请重新登录' })
+    } else {
+      next()
+    }
+  })
+  .get(Student.get)
+  .put(Student.put)
+  .post(Student.post)
+  .delete(Student.del)
+
+router
+  .route('/api/test')
+  .all(jwtAuth, (err, req, res, next) => {
+    if (err.status === 401) {
+      return res.json({ error: '请重新登录' })
+    } else {
+      next()
+    }
+  })
+  .get(Test.get)
+  .put(Test.put)
+  .post(Test.post)
+  .delete(Test.del)
 
 router
   .route('/api/qr')

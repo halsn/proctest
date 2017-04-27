@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Spin, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
+import { Alert, Popconfirm, Spin, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
 import { didmount } from '../../utils'
 
 const FormItem = Form.Item
@@ -11,7 +11,6 @@ class myCourse extends React.Component {
     didmount(this)
   }
   state = {
-    modalVisible: false,
     updateCourse: {}
   }
   render() {
@@ -127,19 +126,37 @@ class myCourse extends React.Component {
         </Modal>
         <div>
           <Spin spinning={loading}>
+            <Alert message='我的课程' />
             <Row gutter={36}>
               {myCourses.map(c => (
                 <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>
-                  <Card title={c.name} extra={<a onClick={() => deleteCourse(c._id)}>删除</a>}>
+                  <Card
+                    title={c.name}
+                    extra={
+                      <Popconfirm onConfirm={() => deleteCourse(c._id)} placement='left' title='删除课程会将关联的班级一起删除，确定吗？' okText='确定' cancelText='取消'>
+                        <a>删除</a>
+                      </Popconfirm>
+                    }
+                  >
                     <p>简介：{c.brief}</p>
                     <p>习题总数：{c.quizs.length}</p>
                     <Button onClick={() => openUpdateModal(c)} style={{ float: 'right', marginBottom: 10, marginRight: -15 }}>修改</Button>
                   </Card>
                 </Col>
               ))}
+            </Row>
+            <Alert message='云端课程' />
+            <Row gutter={36}>
               {otherCourses.map(c => (
                 <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>
-                  <Card title={c.name} extra={<a onClick={() => deleteCourse(c._id)}>删除</a>}>
+                  <Card
+                    title={c.name}
+                    extra={
+                      <Popconfirm onConfirm={() => deleteCourse(c._id)} placement='left' title='删除课程会将关联的班级一起删除，确定吗？' okText='确定' cancelText='取消'>
+                        <a>删除</a>
+                      </Popconfirm>
+                    }
+                  >
                     <p>创建者：{c.creater}</p>
                     <p>简介：{c.brief}</p>
                     <p>习题总数：{c.quizs.length}</p>

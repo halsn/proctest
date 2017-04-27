@@ -17,6 +17,7 @@ class quizInfo extends React.Component {
     const { quizinfo, loading, dispatch } = this.props
     const { courseList, quizList } = quizinfo
     const dataSource = quizList.map(q => ({
+      key: q._id,
       genre: q.genre,
       describe: q.describe.content,
       selections: q.selections.join('， '),

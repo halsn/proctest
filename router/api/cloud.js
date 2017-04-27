@@ -68,6 +68,7 @@ module.exports.put = (req, res) => {
       .then(courses => {
         const { user } = option
         const updates = courses.map(c => new Course({
+          // 从其他人的课程添加到自己的课程列表,需要origin_id标识
           origin_id: c._id,
           owner_id: user._id,
           owner: user.name,

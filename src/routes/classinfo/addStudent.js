@@ -1,6 +1,7 @@
 /* global FileReader */
 import React from 'react'
 import * as XLSX from 'ts-xlsx'
+import { connect } from 'dva'
 import { Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
 import { didmount } from '../../utils'
 
@@ -11,11 +12,9 @@ class addStudent extends React.Component {
     super()
     didmount(this)
   }
-  state = {
-    tableData: []
-  }
   render() {
-    const { tableData } = this.state
+    const { dispatch, addstudent, loading } = this.props
+    const { students, classList, selectClass } = addstudent
     const read = file => {
       const reader = new FileReader()
       reader.readAsBinaryString(file)
@@ -24,7 +23,7 @@ class addStudent extends React.Component {
         const workbook = XLSX.read(data, { type: 'binary' })
         const first_sheet_name = workbook.SheetNames[0]
         const first_sheet = workbook.Sheets[first_sheet_name]
-        //用于过滤重复题目
+        //用于过滤重复
         const sheetData = XLSX.utils.sheet_to_json(first_sheet).filter(el => {
           if (!el.姓名 || !el.学号 || !el.专业 || !el.班级) return false
           else return true
@@ -36,7 +35,7 @@ class addStudent extends React.Component {
           major: el.专业,
           className: el.班级
         }))
-        this.setState({ tableData: source })
+        dispatch({ type: 'addstudent/read', students: source })
       }
       return false
     }
@@ -63,6 +62,13 @@ class addStudent extends React.Component {
         width: '25%'
       }
     ]
+    const post = () => {
+      if (!students.length || !selectClass) return
+      dispatch({ type: 'addstudent/post', payload: { students, selectClass } })
+    }
+    const change = (value) => {
+      dispatch({ type: 'addstudent/change', selectClass: value })
+    }
     return (
       <div>
         <Row type='flex'>
@@ -74,19 +80,19 @@ class addStudent extends React.Component {
             </Upload>
           </Col>
           <Col style={{ width: 70 }}>
-            <Button type='primary'>录入</Button>
+            <Button loading={loading} onClick={post} type='primary'>录入</Button>
           </Col>
         </Row>
         <Row style={{ marginTop: 12 }}>
           <Col>
             <Select
-              showSearch
-              style={{ width: 140 }}
+              style={{ width: 122 }}
               placeholder='选择班级'
+              onChange={change}
             >
-              <Option value='jack'>特别特别长的名字呢个？？？？？？</Option>
-              <Option value='lucy'>Lucy</Option>
-              <Option value='tom'>Tom</Option>
+              {classList.map(c => (
+                <Option key={c._id} value={c._id}>{c.name}</Option>
+              ))}
             </Select>
           </Col>
         </Row>
@@ -95,7 +101,7 @@ class addStudent extends React.Component {
             <Table
               columns={columns}
               scroll={{ x: 1200 }}
-              dataSource={tableData}
+              dataSource={students}
             />
           </Col>
         </Row>
@@ -104,4 +110,4 @@ class addStudent extends React.Component {
   }
 }
 
-export default addStudent
+export default connect(({ addstudent, loading }) => ({ addstudent, loading: loading.global }))(addStudent)

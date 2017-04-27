@@ -37,6 +37,10 @@ class Cloud extends React.Component {
     const { loading, dispatch, app, cloud } = this.props
     const { username } = app
     const { displayData, courseList, selectedRowKeys } = cloud
+    const dataSource = displayData.map(d => ({
+      key: d._id,
+      ...d
+    }))
     const rowSelection = {
       selectedRowKeys,
       onChange: (selectedRowKeys) => {
@@ -57,18 +61,18 @@ class Cloud extends React.Component {
     }
     return (
       <div className='content-inner'>
-        <Row gutter={24} style={{ marginBottom: 16 }}>
-          <Col lg={2} style={{ marginBottom: 16 }}>
-            <Select defaultValue='course' style={{ width: '80px' }}>
+        <Row gutter={12} style={{ display: 'flex', marginBottom: 16 }}>
+          <Col lg={2} style={{ width: 80 }}>
+            <Select defaultValue='course' style={{ width: '100%' }}>
               <Option value='course'>课程</Option>
             </Select>
           </Col>
-          <Col lg={8}>
+          <Col lg={6}>
             <Search onSearch={search} />
           </Col>
         </Row>
-        <Row gutter={24}>
-          <Col lg={2} style={{ marginBottom: 16 }}>
+        <Row gutter={24} style={{ marginBottom: 16 }}>
+          <Col lg={2}>
             <Button loading={loading} type='primary' onClick={addToMyCourse}>添加至我的课程</Button>
           </Col>
         </Row>
@@ -80,7 +84,7 @@ class Cloud extends React.Component {
                 scroll={{ x: 1200 }}
                 columns={columns}
                 rowSelection={rowSelection}
-                dataSource={displayData}
+                dataSource={dataSource}
               />
             </Spin>
           </div>

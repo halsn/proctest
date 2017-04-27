@@ -3,6 +3,7 @@ const _ = require('lodash')
 
 const db = require(path.resolve('lib/db.js'))
 const Course = db.model('Course')
+const Class = db.model('Class')
 const getError = db.getError
 
 module.exports.get = (req, res) => {
@@ -47,6 +48,9 @@ module.exports.del = (req, res) => {
   const { id: owner_id } = req.user
   const { id: course_id } = req.query
   Course.findOneAndRemove({ _id: course_id, owner_id })
+    .then(() => {
+      return Class.remove({ refCourse: course_id })
+    })
     .then(() => {
       return res.json({ success: '删除成功' })
     })
