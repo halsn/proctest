@@ -12,6 +12,7 @@ export default {
     showLogin: true,
     showSignup: false,
     username: '',
+    id: '',
     menuPopoverVisible: false,
     siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
     darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
@@ -92,6 +93,7 @@ export default {
       return {
         ...state,
         username: payload.name,
+        id: payload.id,
         showLogin: false,
         showSignup: false
       }

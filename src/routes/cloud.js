@@ -35,11 +35,11 @@ class Cloud extends React.Component {
   }
   render() {
     const { loading, dispatch, app, cloud } = this.props
-    const { username } = app
+    const { id } = app
     const { displayData, courseList, selectedRowKeys } = cloud
     const dataSource = displayData.map(d => ({
-      key: d._id,
-      ...d
+      ...d,
+      key: d._id
     }))
     const rowSelection = {
       selectedRowKeys,
@@ -47,7 +47,7 @@ class Cloud extends React.Component {
         dispatch({ type: 'cloud/select', selectedRowKeys })
       },
       getCheckboxProps: record => ({
-        disabled: record.creater === username
+        disabled: record.creater_id === id
       })
     }
     const search = (value) => {
@@ -56,7 +56,7 @@ class Cloud extends React.Component {
     }
     const addToMyCourse = () => {
       if (!selectedRowKeys.length) return
-      const data = selectedRowKeys.map(idx => courseList[idx])
+      const data = courseList.filter(c => selectedRowKeys.find(s => s === c._id))
       dispatch({ type: 'cloud/put', payload: data })
     }
     return (

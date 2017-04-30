@@ -26,6 +26,7 @@ app.model(require('./models/courseinfo/quizInfo.model'))
 app.model(require('./models/classinfo/myClass.model'))
 app.model(require('./models/classinfo/addStudent.model'))
 app.model(require('./models/classinfo/pubTest.model'))
+app.model(require('./models/classinfo/testInfo.model'))
 
 // 3. Router
 app.router(require('./router'))

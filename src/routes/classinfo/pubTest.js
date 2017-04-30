@@ -45,7 +45,8 @@ class pubTest extends React.Component {
       if (value === 0) this.setState({ singleNum: 0, multiNum: 0, judgeNum: 0, askNum: 0 })
     }
     const updateExpireTime = (value) => {
-      this.setState({ expireTime: new Date(value).getTime() })
+      if (!value) return
+      this.setState({ expireTime: value.valueOf() })
     }
     const updateSingle = (value) => this.setState({ singleNum: value })
     const updateMulti = (value) => this.setState({ multiNum: value })
@@ -62,6 +63,9 @@ class pubTest extends React.Component {
         dispatch({ type: 'pubtest/put', payload: this.state })
         updateAns(0)
       }
+    }
+    const disabledStartDate = (value) => {
+      return new Date(value).getTime() <= Date.now()
     }
     return (
       <div>
@@ -92,6 +96,7 @@ class pubTest extends React.Component {
                 <DatePicker
                   format='YYYY-MM-DD HH:mm:ss'
                   showTime
+                  disabledDate={disabledStartDate}
                   onChange={updateExpireTime}
                   // onOk={updateExpireTime}
                 />

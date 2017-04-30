@@ -9,6 +9,8 @@ const QuizInfo = require('./api/quizinfo.js')
 const myClass = require('./api/myclass.js')
 const Student = require('./api/student.js')
 const Test = require('./api/test.js')
+const UserInfo = require('./api/userinfo.js')
+const TestInfo = require('./api/testinfo.js')
 const QR = require('./api/qr.js')
 const openTest = require('./api/opentest.js')
 const jwt = require('express-jwt')
@@ -129,11 +131,41 @@ router
   .delete(Test.del)
 
 router
+  .route('/api/userinfo')
+  .all(jwtAuth, (err, req, res, next) => {
+    if (err.status === 401) {
+      return res.json({ error: '请重新登录' })
+    } else {
+      next()
+    }
+  })
+  .get(UserInfo.get)
+  .put(UserInfo.put)
+  .post(UserInfo.post)
+  .delete(UserInfo.del)
+
+router
+  .route('/api/testinfo')
+  .all(jwtAuth, (err, req, res, next) => {
+    if (err.status === 401) {
+      return res.json({ error: '请重新登录' })
+    } else {
+      next()
+    }
+  })
+  .get(TestInfo.get)
+  .put(TestInfo.put)
+  .post(TestInfo.post)
+  .delete(TestInfo.del)
+
+router
   .route('/api/qr')
   .get(QR.get)
 
 router
   .route('/test')
   .get(openTest.get)
+  .post(openTest.post)
+  .put(openTest.put)
 
 router.get('*', (req, res) => res.redirect('/'))

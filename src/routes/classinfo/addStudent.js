@@ -23,11 +23,17 @@ class addStudent extends React.Component {
         const workbook = XLSX.read(data, { type: 'binary' })
         const first_sheet_name = workbook.SheetNames[0]
         const first_sheet = workbook.Sheets[first_sheet_name]
-        //用于过滤重复
+        //用于过滤不合法元素以及重复元素
+        const filterBump = []
         const sheetData = XLSX.utils.sheet_to_json(first_sheet).filter(el => {
+          if (filterBump.indexOf(el.学号) !== -1) return false
           if (!el.姓名 || !el.学号 || !el.专业 || !el.班级) return false
-          else return true
+          else {
+            filterBump.push(el.学号)
+            return true
+          }
         })
+        console.log(sheetData)
         const source = sheetData.map((el, idx) => ({
           key: idx,
           name: el.姓名,

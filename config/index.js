@@ -7,6 +7,8 @@ module.exports = {
     port: 5000
   },
   db: {
-    uri: '0.0.0.0:27017/proctest'
+    ip: '127.0.0.1',
+    port: '27017',
+    uri: '127.0.0.1:27017/proctest'
   }
 }

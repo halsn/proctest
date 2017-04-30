@@ -2,10 +2,13 @@ const path = require('path')
 const _ = require('lodash')
 const uuidV1 = require('uuid/v1')
 
-const db = require(path.resolve('lib/db.js'))
+const db = require(path.resolve('./lib/db.js'))
 const Class = db.model('Class')
 const Test = db.model('Test')
 const getError = db.getError
+const agenda = require(path.resolve('./lib/agenda.js'))
+
+const PERIOD = 1000 * 60
 
 module.exports.get = (req, res) => {
   const { id } = req.user
@@ -75,6 +78,7 @@ module.exports.put = (req, res) => {
     .then(genQuizs)
     .then(createTest)
     .then(save)
+    .then(registerEvent)
     .then(() => {
       return res.json({ success: '发布成功' })
     })
@@ -111,10 +115,22 @@ module.exports.put = (req, res) => {
     const judgeQuizs = quizs.filter(q => q.genre === '判断题')
     const askQuizs = quizs.filter(q => q.genre === '问答题')
     const updateStudents = refStudents.map(s => {
-      const single = _.shuffle(singleQuizs).splice(0, singleNum)
-      const multi = _.shuffle(multiQuizs).splice(0, multiNum)
+      var single = _.shuffle(singleQuizs).splice(0, singleNum)
+      var multi = _.shuffle(multiQuizs).splice(0, multiNum)
       const judge = _.shuffle(judgeQuizs).splice(0, judgeNum)
       const ask = _.shuffle(askQuizs).splice(0, askNum)
+      single = single.map(s => {
+        const { genre, describe, answers } = s
+        var { selections } = s
+        selections = _.shuffle(selections)
+        return { genre, describe, answers, selections }
+      })
+      multi = multi.map(s => {
+        const { genre, describe, answers } = s
+        var { selections } = s
+        selections = _.shuffle(selections)
+        return { genre, describe, answers, selections }
+      })
       return {
         name: s.name,
         sno: s.sno,
@@ -123,7 +139,7 @@ module.exports.put = (req, res) => {
         refQuizs: [...single, ...multi, ...judge, ...ask]
       }
     })
-    delete option.refStudents
+    option = _.omit(option, 'refStudents')
     option = _.assign({ refStudents: updateStudents }, option)
     return Promise.resolve(option)
   }
@@ -145,7 +161,7 @@ module.exports.put = (req, res) => {
       correctNum,
       refStudents
     } = option
-    const answerExpireAt = createAt + (answerTime * 1000 * 60)
+    const answerExpireAt = createAt + (answerTime * PERIOD)
     const expireAt = expireTime
     const uuid = uuidV1()
     const update = new Test({
@@ -178,6 +194,16 @@ module.exports.put = (req, res) => {
       .catch(err => {
         return Promise.reject(err)
       })
+  }
+
+  function registerEvent(option) {
+    // TODO: 注册检测事件 //
+    const { update } = option
+    const { answerExpireAt, expireAt } = update
+    const data = { uuid: update.uuid }
+    agenda.schedule(answerExpireAt, 'answerExpire', data)
+    agenda.schedule(expireAt, 'testExpire', data)
+    return Promise.resolve(option)
   }
 }
 

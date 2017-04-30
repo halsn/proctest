@@ -12,7 +12,7 @@ module.exports.post = (req, res) => {
     return res.json({ error: '两次输入密码不一致' })
   } else {
     const hash = bcrypt.hashSync(userpass, 8)
-    const update = new Teacher({ email: useremail, pass: hash })
+    const update = new Teacher({ email: useremail, pass: hash, name: useremail })
     update.save()
       .then(() => {
         return res.json({ success: '注册成功' })
