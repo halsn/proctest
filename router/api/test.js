@@ -197,7 +197,6 @@ module.exports.put = (req, res) => {
   }
 
   function registerEvent(option) {
-    // TODO: 注册检测事件 //
     const { update } = option
     const { answerExpireAt, expireAt } = update
     const data = { uuid: update.uuid }

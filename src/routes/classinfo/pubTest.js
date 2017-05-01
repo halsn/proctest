@@ -57,7 +57,7 @@ class pubTest extends React.Component {
     }
     const post = () => {
       if (!curClass) return
-      if (!answerTime || !expireTime) return
+      if (!answerTime || !expireTime || !studentsCount) return
       if (is.any.truthy([singleNum, multiNum, judgeNum, askNum])) {
         this.state.postAt = Date.now()
         dispatch({ type: 'pubtest/put', payload: this.state })

@@ -29,7 +29,19 @@ class testInfo extends React.Component {
     // })
     const { dispatch, testinfo, loading } = this.props
     const { testList, test } = testinfo
-    const { stage } = test
+    const { stage, refStudents } = test
+    var students = refStudents || []
+    var unCheckedStudents = refStudents || []
+    if (students.length) {
+      students = students.map(s => ({
+        name: s.name,
+        sno: s.sno,
+        score: s.refQuizs.map(q => q.score).reduce((p, c) => p + c)
+      }))
+    }
+    if (unCheckedStudents.length) {
+      unCheckedStudents = unCheckedStudents.filter(s => !s.isChecked)
+    }
     const updateDate = (value) => {
       this.setState({ uuid: '' })
       if (!value) dispatch({ type: 'testinfo/resetList' })
@@ -46,6 +58,16 @@ class testInfo extends React.Component {
     }
     const testURL = `http://${window.location.host}/test?uuid=${this.state.uuid}`
     const qrURL = `http://${window.location.host}/api/qr?url=${testURL}`
+    const postCheck = () => {
+      const askQuizs = test.refStudents.map(s => s.refQuizs).reduce((p, c) => [...p, ...c]).filter(q => q.genre === '问答题')
+      if (askQuizs.every(q => q.score !== 0)) {
+        dispatch({ type: 'testinfo/putCheck', payload: { test } })
+      }
+    }
+    const updateRate = (sno, qIdx, v) => {
+      const sIdx = test.refStudents.findIndex(s => s.sno === sno)
+      test.refStudents[sIdx].refQuizs[qIdx].score = v * 2
+    }
     const select = (
       <div>
         <Col lg={24}>
@@ -105,19 +127,26 @@ class testInfo extends React.Component {
               {select}
               <Col style={{ marginTop: 10 }}>
                 <Alert message='当前阶段：确认未批改习题' />
+                <Button onClick={postCheck} type='primary'>提交</Button>
               </Col>
               <Col lg={24}>
-                <Collapse bordered={false}>
-                  <Panel header='学号1' key='1'>
-                    <p>题目：世世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里界的最南端在哪里？？</p>
-                    <p>答案：我怎么绘制到啊，你再说一边</p>
-                    <br />
-                    <p>题目：世世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里界的最南端在哪里？？</p>
-                    <p>答案：我怎么绘制到啊，你再说一边</p>
-                    <Rate character={<Icon type='like' />} />
-                    <Button>确定</Button>
-                  </Panel>
-                </Collapse>
+                {unCheckedStudents.map(s => (
+                  <Collapse key={s.no} bordered={false}>
+                    <Panel header={s.name + '-' + s.sno} key={s.no}>
+                      {s.refQuizs.map((q, qIdx) => {
+                        if (q.genre !== '问答题') return <span key={q._id}>{' '}</span>
+                        return (
+                          <div key={q._id} style={{ marginBottom: 10 }}>
+                            <p>题目：{q.describe.content}</p>
+                            <p>参考答案：{q.answers.join('')}</p>
+                            <p>提交的答案：{q.answered.join('')}</p>
+                            <Rate onChange={(v) => updateRate(s.sno, qIdx, v)} character={<Icon type='like' />} />
+                          </div>
+                        )
+                      })}
+                    </Panel>
+                  </Collapse>
+                ))}
               </Col>
             </Row>
           </Spin>
@@ -133,17 +162,13 @@ class testInfo extends React.Component {
                 <Alert message='当前阶段：测试结束' />
               </Col>
               <Col lg={24}>
-                <Collapse bordered={false}>
-                  <Panel header='学号1' key='1'>
-                    <p>题目：世世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里界的最南端在哪里？？</p>
-                    <p>答案：我怎么绘制到啊，你再说一边</p>
-                    <br />
-                    <p>题目：世世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里世界的最南端在哪里界的最南端在哪里？？</p>
-                    <p>答案：我怎么绘制到啊，你再说一边</p>
-                    <Rate character={<Icon type='like' />} />
-                    <Button>确定</Button>
-                  </Panel>
-                </Collapse>
+                {students.map(s => (
+                  <Collapse key={s.no} bordered={false}>
+                    <Panel header={s.name + '-' + s.sno} key={s.no}>
+                      <p>总得分：{s.score}</p>
+                    </Panel>
+                  </Collapse>
+                ))}
               </Col>
             </Row>
           </Spin>

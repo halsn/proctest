@@ -1,6 +1,6 @@
 /* global localStorage document window */
 import { message } from 'antd'
-import { get, post } from '../../services/classinfo/testInfo.service.js'
+import { get, post, put } from '../../services/classinfo/testInfo.service.js'
 import { axios } from '../../utils'
 
 const ERROR_MSG_DURATION = 3 // 3 秒
@@ -26,10 +26,18 @@ export default {
     test: {}
   },
   effects: {
+    *putCheck({ payload }, { call, put: dispatch }) {
+      const { data } = yield call(put, payload)
+      if (data.success) {
+        yield dispatch({ type: 'reset' })
+        message.success(data.success, ERROR_MSG_DURATION)
+      } else {
+        message.error(data.error, ERROR_MSG_DURATION)
+      }
+    },
     *getTest({ payload }, { call, put }) {
       const { data } = yield call(post, payload)
       if (data.success) {
-        message.success(data.success, ERROR_MSG_DURATION)
         yield put({ type: 'putTest', data })
       } else {
         message.error(data.error, ERROR_MSG_DURATION)
@@ -45,6 +53,13 @@ export default {
     }
   },
   reducers: {
+    reset(state) {
+      return {
+        ...state,
+        test: {},
+        testList: []
+      }
+    },
     putTest(state, { data }) {
       const { test } = data
       return {

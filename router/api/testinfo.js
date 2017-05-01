@@ -20,6 +20,7 @@ module.exports.get = (req, res) => {
     { createAt: { $gt: originTime } },
     { refTeacher: id }
   ] })
+    .sort({ createAt: 1 })
     .then(tests => {
       const testList = tests.map(t => ({
         uuid: t.uuid,
@@ -37,7 +38,22 @@ module.exports.del = (req, res) => {
 }
 
 module.exports.put = (req, res) => {
-  return res.json({ success: 'put' })
+  const { test } = req.body
+  test.stage = 'inFinished'
+  const { _id } = test
+  Test.remove({ _id })
+    .then(() => {
+      new Test(test).save()
+        .then(() => {
+          return res.json({ success: '提交成功' })
+        })
+        .catch(err => {
+          return res.json({ error: getError(err) })
+        })
+    })
+    .catch(err => {
+      return res.json({ error: getError(err) })
+    })
 }
 
 module.exports.post = (req, res) => {

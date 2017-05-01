@@ -11,6 +11,7 @@ const Student = require('./api/student.js')
 const Test = require('./api/test.js')
 const UserInfo = require('./api/userinfo.js')
 const TestInfo = require('./api/testinfo.js')
+const Comment = require('./api/comment.js')
 const QR = require('./api/qr.js')
 const openTest = require('./api/opentest.js')
 const jwt = require('express-jwt')
@@ -167,5 +168,9 @@ router
   .get(openTest.get)
   .post(openTest.post)
   .put(openTest.put)
+
+router
+  .route('/comment')
+  .post(Comment.post)
 
 router.get('*', (req, res) => res.redirect('/'))

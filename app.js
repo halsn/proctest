@@ -51,3 +51,7 @@ app.use((err, req, res, next) => {
 app.listen(port, host, () => {
   console.log(`Node app is running on http://${host}:${port}`)
 })
+
+process.on('unhandledRejection', (reason) => {
+  console.log('Reason: ' + reason.toString())
+})
