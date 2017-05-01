@@ -95,6 +95,7 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
               <Icon type='upload' />点击选择文件
             </Button>
           </Upload>
+          <a href='/quiz.xlsx'>点击下载示例文件</a>
           <Select onChange={change} style={{ width: 122, marginTop: 10 }} placeholder='选择课程'>
             {courseList.map(c => (
               <Option key={c._id} value={c._id}>{c.name}</Option>

@@ -84,6 +84,7 @@ class addStudent extends React.Component {
                 <Icon type='upload' />点击选择文件
               </Button>
             </Upload>
+            <a href='/student.xlsx'>点击下载示例文件</a>
           </Col>
           <Col style={{ width: 70 }}>
             <Button loading={loading} onClick={post} type='primary'>录入</Button>
