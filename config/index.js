@@ -1,3 +1,4 @@
+const { MONGODB_CONNECTION, MONGODB_PORT_27017_TCP_PORT } = process.env
 module.exports = {
   jwt: {
     secret: 'jwt'
@@ -8,7 +9,7 @@ module.exports = {
   },
   db: {
     ip: '127.0.0.1',
-    port: '27017',
-    uri: '127.0.0.1:27017/proctest'
+    port: MONGODB_PORT_27017_TCP_PORT || '27017',
+    uri: MONGODB_CONNECTION || '127.0.0.1:27017/proctest'
   }
 }
