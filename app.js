@@ -15,7 +15,7 @@ const port = config.app.port
 const host = config.app.host
 app.use(compression())
 app.use(express.static(path.resolve('./static')))
-// app.use('/mongo', mongoExpress(mongoExpressConfig))
+app.use('/mongo', mongoExpress(mongoExpressConfig))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
