@@ -1,10 +1,7 @@
-#FROM alpine:edge
-FROM mhart/alpine-node:latest
-#RUN apk add --update nodejs
-#RUN apk add --update mongodb
+FROM node:7.10.0-alpine
 RUN mkdir -p /src
 WORKDIR /src
 COPY . /src
-RUN npm install
+RUN npm i --prod
 EXPOSE 5000
-CMD ["node", "app.js"]
+ENTRYPOINT node app.js

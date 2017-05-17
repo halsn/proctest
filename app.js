@@ -10,12 +10,10 @@ const router = require('./router')
 const config = require(path.resolve('./config'))
 
 const app = express()
-
 const port = config.app.port
-const host = config.app.host
 app.use(compression())
 app.use(express.static(path.resolve('./static')))
-// app.use('/mongo', mongoExpress(mongoExpressConfig))
+app.use('/mongo', mongoExpress(mongoExpressConfig))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -48,10 +46,14 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen(port, host, () => {
-  console.log(`Node app is running on http://${host}:${port}`)
+app.listen(port, () => {
+  console.log(`Node app is running on http://localhost:${port}`)
 })
 
 process.on('unhandledRejection', (reason) => {
   console.log('Reason: ' + reason.toString())
+})
+
+process.on('error', (err) => {
+  console.log(err)
 })

@@ -1,17 +1,19 @@
 version: "2"
+
 services:
   web:
     build: .
-    container_name: node_server
+    container_name: proctest_node_server
     ports:
       - 5000:5000
+    environment:
+      - URI=mongodb://mongo/proctest
+      - HOST=mongo
     links:
-      - mongodb
+      - mongo
 
-  mongodb:
-   image: mongo
-   container_name: mongodb_server
-   ports:
-    - 27017:27017
-   volumes:
-    - /data/mongodb/db:/data/db
+  mongo:
+    image: mongo
+    container_name: proctest_mongo_server
+    volumes:
+      - /data/mongodb/proctest/db:/data/db
