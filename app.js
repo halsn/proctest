@@ -10,7 +10,13 @@ const router = require('./router')
 const config = require(path.resolve('./config'))
 
 const app = express()
+<<<<<<< HEAD
 const port = config.app.port
+=======
+
+const port = config.app.port
+const host = config.app.host
+>>>>>>> 5ac8705abdf032f1b1eb0b52ffa1d49e8022e0e2
 app.use(compression())
 app.use(express.static(path.resolve('./static')))
 app.use('/mongo', mongoExpress(mongoExpressConfig))
@@ -46,14 +52,22 @@ app.use((err, req, res, next) => {
   next()
 })
 
+<<<<<<< HEAD
 app.listen(port, () => {
   console.log(`Node app is running on http://localhost:${port}`)
+=======
+app.listen(port, host, () => {
+  console.log(`Node app is running on http://${host}:${port}`)
+>>>>>>> 5ac8705abdf032f1b1eb0b52ffa1d49e8022e0e2
 })
 
 process.on('unhandledRejection', (reason) => {
   console.log('Reason: ' + reason.toString())
 })
+<<<<<<< HEAD
 
 process.on('error', (err) => {
   console.log(err)
 })
+=======
+>>>>>>> 5ac8705abdf032f1b1eb0b52ffa1d49e8022e0e2
