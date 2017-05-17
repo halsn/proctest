@@ -81,13 +81,10 @@ function App({ history, children, location, dispatch, app, loading }) {
               {children}
             </div>
           </div>
-<<<<<<< HEAD
           <div>
             <Sider {...siderProps} />
             <Sider {...siderProps} />
           </div>
-=======
->>>>>>> 5ac8705abdf032f1b1eb0b52ffa1d49e8022e0e2
           <Footer />
         </div>
       </div>
