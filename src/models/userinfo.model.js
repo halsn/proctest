@@ -25,7 +25,7 @@ export default {
     quizNum: 0,
     courseNum: 0,
     testNum: 0,
-    weatherIcon: '',
+    weatherIcon: 'CLEAR_DAY',
     temp: 0,
     weatherName: '',
     data: []

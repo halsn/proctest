@@ -5,6 +5,7 @@ const _ = require('lodash')
 const db = require(path.resolve('lib/db.js'))
 const Test = db.model('Test')
 const getError = db.getError
+const triggerJob = require(path.resolve('lib/jobs/triggerJOb'))
 
 module.exports.get = (req, res) => {
   return res.json({ success: 'get' })
@@ -77,6 +78,10 @@ module.exports.post = (req, res) => {
   }
 
   function updateStage(option) {
+    const { test, uuid } = option
+    if (test.refStudents.every(s => s.postChecked)) {
+      triggerJob(uuid)
+    }
     return Promise.resolve(option)
   }
 

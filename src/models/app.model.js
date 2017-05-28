@@ -30,10 +30,17 @@ export default {
     }
   },
   effects: {
-    *login({ payload }, { call, put }) {
+    *login({ history, payload }, { call, put }) {
       const { data } = yield call(login, payload)
       if (data.tokenLogin || data.success) {
         yield put({ type: 'loginSuccess', payload: data })
+        if (data.token) {
+          localStorage.setItem('jwttoken', data.token)
+          axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
+        } else {
+          const token = localStorage.getItem('jwttoken')
+          axios.defaults.headers.common.Authorization = 'Bearer ' + token
+        }
         yield put({ type: 'userinfo/get' })
       } else {
         yield put({ type: 'loginFail', payload: data })

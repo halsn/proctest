@@ -52,5 +52,5 @@ app.listen(port, () => {
 })
 
 process.on('unhandledRejection', (reason) => {
-  console.log('Reason: ' + reason.toString())
+  console.log('Reason: ' + reason)
 })

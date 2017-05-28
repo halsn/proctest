@@ -26,7 +26,7 @@ class testInfo extends React.Component {
       students = students.map(s => ({
         name: s.name,
         sno: s.sno,
-        score: s.refQuizs.map(q => q.score).reduce((p, c) => p + c)
+        score: Math.round((s.refQuizs.map(q => q.score).reduce((p, c) => p + c) / (s.refQuizs.length * 10)) * 100)
       }))
     }
     if (unCheckedStudents.length) {
