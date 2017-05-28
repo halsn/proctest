@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Spin, Select, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
+import { Popconfirm, Alert, Spin, Select, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
 import is from 'is_js'
 import { didmount } from '../../utils'
 
@@ -70,6 +70,7 @@ class myClass extends React.Component {
           type='primary'
           style={{ marginBottom: 12 }}
         >添加班级</Button>
+        <Alert message='我的班级' />
         <Modal
           title='添加班级'
           wrapClassName='vertical-center-modal'
@@ -153,7 +154,14 @@ class myClass extends React.Component {
             <Row gutter={36}>
               {classList.map(c => (
                 <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>
-                  <Card title={c.name} extra={<a onClick={() => deleteClass(c._id)}>删除</a>}>
+                  <Card
+                    title={c.name}
+                    extra={
+                      <Popconfirm onConfirm={() => deleteClass(c._id)} placement='left' title='确定删除吗？' okText='确定' cancelText='取消'>
+                        <a>删除</a>
+                      </Popconfirm>
+                    }
+                  >
                     <p>学期：{c.term}</p>
                     <p>课程：{courseList.find(l => l._id === c.refCourse).name}</p>
                     <p>简介：{c.brief}</p>

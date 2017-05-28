@@ -1,9 +1,8 @@
-/* global localStorage document window */
+/* global window */
 import React from 'react'
 import { connect } from 'dva'
-import { Spin, Alert, Icon, Button, Rate, Collapse, DatePicker, Row, Col, Select } from 'antd'
-// import Mock from 'mockjs'
-// import Completed from '../../components/userinfo/completed.js'
+import { Table, Spin, Alert, Icon, Button, Rate, Collapse, DatePicker, Row, Col, Select } from 'antd'
+import Completed from '../../components/userinfo/completed.js'
 import { didmount } from '../../utils'
 
 const Option = Select.Option
@@ -18,15 +17,6 @@ class testInfo extends React.Component {
     uuid: ''
   }
   render() {
-    // const { data } = Mock.mock({
-      // 'data|10-20': [
-        // {
-          // 'name|+1': 2008,
-          // 'Task complete|200-1000': 1,
-          // 'Cards Complete|200-1000': 1
-        // }
-      // ]
-    // })
     const { dispatch, testinfo, loading } = this.props
     const { testList, test } = testinfo
     const { stage, refStudents } = test
@@ -68,13 +58,64 @@ class testInfo extends React.Component {
       const sIdx = test.refStudents.findIndex(s => s.sno === sno)
       test.refStudents[sIdx].refQuizs[qIdx].score = v * 2
     }
+    const inRange = (from, to) => {
+      return (n) => {
+        if (n >= from && n <= to) return true
+        else return false
+      }
+    }
+    const data = [
+      {
+        range: '0-10',
+        人数: students.filter(s => inRange(0, 10)(s.score)).length
+      }, {
+        range: '11-20',
+        人数: students.filter(s => inRange(11, 20)(s.score)).length
+      }, {
+        range: '21-30',
+        人数: students.filter(s => inRange(21, 30)(s.score)).length
+      }, {
+        range: '31-40',
+        人数: students.filter(s => inRange(31, 40)(s.score)).length
+      }, {
+        range: '41-50',
+        人数: students.filter(s => inRange(41, 50)(s.score)).length
+      }, {
+        range: '51-60',
+        人数: students.filter(s => inRange(51, 60)(s.score)).length
+      }, {
+        range: '61-70',
+        人数: students.filter(s => inRange(61, 70)(s.score)).length
+      }, {
+        range: '71-80',
+        人数: students.filter(s => inRange(71, 80)(s.score)).length
+      }, {
+        range: '81-90',
+        人数: students.filter(s => inRange(81, 90)(s.score)).length
+      }, {
+        range: '91-100',
+        人数: students.filter(s => inRange(91, 100)(s.score)).length
+      }
+    ]
+    const columns = [
+      {
+        title: '学号',
+        dataIndex: 'sno'
+      }, {
+        title: '姓名',
+        dataIndex: 'name'
+      }, {
+        title: '得分',
+        dataIndex: 'score'
+      }
+    ]
     const select = (
       <div>
-        <Col lg={24}>
+        <Col lg={24} style={{ marginBottom: 10 }}>
           <DatePicker onChange={updateDate} />
         </Col>
         <Col style={{ marginTop: 10 }}>
-          <Select value={this.state.uuid} onChange={updateTestId} style={{ width: 164, marginRight: 10 }} placeholder='选择测试'>
+          <Select value={this.state.uuid ? this.state.uuid : <span style={{ color: '#d5d5d5' }}>选择测试</span>} onChange={updateTestId} style={{ width: 164, marginRight: 10 }}>
             {testList.map(t => (
               <Option key={t.uuid} value={t.uuid}>{t.createAt}</Option>
             ))}
@@ -162,13 +203,10 @@ class testInfo extends React.Component {
                 <Alert message='当前阶段：测试结束' />
               </Col>
               <Col lg={24}>
-                {students.map(s => (
-                  <Collapse key={s.no} bordered={false}>
-                    <Panel header={s.name + '-' + s.sno} key={s.no}>
-                      <p>总得分：{s.score}</p>
-                    </Panel>
-                  </Collapse>
-                ))}
+                <Table title={() => <p style={{ textAlign: 'center', fontSize: 16 }}>测试结果</p>} pagination={{ pageSize: 5 }} rowKey={record => record.sno} columns={columns} dataSource={students} />
+              </Col>
+              <Col>
+                <Completed data={data} />
               </Col>
             </Row>
           </Spin>

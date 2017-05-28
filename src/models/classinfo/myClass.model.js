@@ -1,4 +1,4 @@
-/* global localStorage document window */
+/* global localStorage */
 import { message } from 'antd'
 import { get, put, post, del } from '../../services/classinfo/myClass.service.js'
 import { axios } from '../../utils'
@@ -26,7 +26,7 @@ export default {
     showUpdateModal: false,
     classList: [],
     courseList: [],
-    termList: ['2017年第一学期', '2017年第二学期']
+    termList: ['2017年第一学期', '2017年第二学期', '2018年第一学期', '2018年第二学期']
   },
   effects: {
     *post({ payload }, { call, put }) {

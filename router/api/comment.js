@@ -32,6 +32,7 @@ module.exports.post = (req, res) => {
   getTest(option)
     .then(updateCheckStudent)
     .then(updateQuizs)
+    .then(updateStage)
     .then(save)
     .then((option) => {
       const { student } = option
@@ -72,6 +73,10 @@ module.exports.post = (req, res) => {
       const qIdx = test.refStudents[sIdx].refQuizs.findIndex(q => String(q._id) === String(_id))
       test.refStudents[sIdx].refQuizs[qIdx].checkedBy.push(u)
     })
+    return Promise.resolve(option)
+  }
+
+  function updateStage(option) {
     return Promise.resolve(option)
   }
 

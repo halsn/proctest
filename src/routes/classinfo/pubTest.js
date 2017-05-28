@@ -80,7 +80,7 @@ class pubTest extends React.Component {
           </Col>
         </Row>
         <br />
-        <Alert showIcon message='注意：为了保证学生批改的质量，每道问答题至少需要两名学生进行批改，因此学生每人批改数量为问答题个数X5' type='warning' />
+        <Alert showIcon message='注意：为了保证学生批改的质量，每道问答题至少需要两名学生进行批改，因此设置学生每人批改数量为问答题个数X5，请不要将问答题个数设置过高' type='warning' />
         <Row gutter={24}>
           <Col>
             <Spin spinning={loading}>

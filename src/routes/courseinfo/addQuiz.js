@@ -2,7 +2,7 @@
 import React from 'react'
 import * as XLSX from 'ts-xlsx'
 import { connect } from 'dva'
-import { Spin, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
+import { Alert, Spin, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
 import { didmount } from '../../utils'
 
 const Option = Select.Option
@@ -88,6 +88,8 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
   }
   return (
     <div>
+      <Alert showIcon message={<span>录入格式请参考下载文件，<a href='/quiz.xlsx'>点击下载文件</a></span>} />
+      <Alert showIcon type='warning' message='注意：录入时，习题集已有的习题会自动过滤，没有的习题会添加到习题集中，录入成功后请注意查看' />
       <Row type='flex'>
         <Col style={{ width: 134 }}>
           <Upload beforeUpload={read} showUploadList accept='.xlsx'>
@@ -95,7 +97,6 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
               <Icon type='upload' />点击选择文件
             </Button>
           </Upload>
-          <a href='/quiz.xlsx'>点击下载示例文件</a>
           <Select onChange={change} style={{ width: 122, marginTop: 10 }} placeholder='选择课程'>
             {courseList.map(c => (
               <Option key={c._id} value={c._id}>{c.name}</Option>

@@ -81,10 +81,6 @@ function App({ history, children, location, dispatch, app, loading }) {
               {children}
             </div>
           </div>
-          <div>
-            <Sider {...siderProps} />
-            <Sider {...siderProps} />
-          </div>
           <Footer />
         </div>
       </div>

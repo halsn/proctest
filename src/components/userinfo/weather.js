@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from './weather.less';
+import React from 'react'
+import styles from './weather.less'
 
 function Weather(props) {
-  const { city, dateTime, temperature, name } = props;
+  const { city, temperature, name } = props
   return (<div className={styles.weather}>
     <div className={styles.left}>
       <div className={styles.icon} />
@@ -10,9 +10,9 @@ function Weather(props) {
     </div>
     <div className={styles.right}>
       <h1 className={styles.temperature}>{temperature + '°'}</h1>
-      <p className={styles.description}>{city},{dateTime}</p>
+      <p className={styles.description}>{city}</p>
     </div>
-  </div>);
+  </div>)
 }
 
-export default Weather;
+export default Weather

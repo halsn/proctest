@@ -2,7 +2,7 @@
 import React from 'react'
 import * as XLSX from 'ts-xlsx'
 import { connect } from 'dva'
-import { Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
+import { Alert, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
 import { didmount } from '../../utils'
 
 const Option = Select.Option
@@ -77,6 +77,8 @@ class addStudent extends React.Component {
     }
     return (
       <div>
+        <Alert showIcon message={<span>录入格式请参考下载文件，<a href='/student.xlsx'>点击下载文件</a></span>} />
+        <Alert showIcon type='warning' message='注意：学生名单以最后一次录入为准' />
         <Row type='flex'>
           <Col style={{ width: 140 }}>
             <Upload beforeUpload={read} showUploadList accept='.xlsx'>
@@ -84,7 +86,6 @@ class addStudent extends React.Component {
                 <Icon type='upload' />点击选择文件
               </Button>
             </Upload>
-            <a href='/student.xlsx'>点击下载示例文件</a>
           </Col>
           <Col style={{ width: 70 }}>
             <Button loading={loading} onClick={post} type='primary'>录入</Button>

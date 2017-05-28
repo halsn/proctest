@@ -1,4 +1,4 @@
-/* global localStorage document window */
+/* global localStorage */
 import { message } from 'antd'
 import { get } from '../services/userinfo.service.js'
 import { axios } from '../utils'
@@ -21,7 +21,15 @@ export default {
       })
     }
   },
-  state: {},
+  state: {
+    quizNum: 0,
+    courseNum: 0,
+    testNum: 0,
+    weatherIcon: '',
+    temp: 0,
+    weatherName: '',
+    data: []
+  },
   effects: {
     *get({ payload }, { call, put }) {
       const { data } = yield call(get, payload)
@@ -34,9 +42,9 @@ export default {
   },
   reducers: {
     getSuccess(state, { data }) {
-      message.success(data.success, ERROR_MSG_DURATION)
       return {
-        ...state
+        ...state,
+        ...data
       }
     },
     getFail(state, { data }) {

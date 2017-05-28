@@ -1,4 +1,4 @@
-/* global localStorage document window */
+/* global localStorage */
 import { message } from 'antd'
 import { get, post, put } from '../../services/classinfo/testInfo.service.js'
 import { axios } from '../../utils'
@@ -78,13 +78,15 @@ export default {
       testList = testList || []
       return {
         ...state,
-        testList
+        testList,
+        test: {}
       }
     },
     getFail(state, { data }) {
       message.error(data.error, ERROR_MSG_DURATION)
       return {
-        ...state
+        ...state,
+        test: {}
       }
     }
   }
