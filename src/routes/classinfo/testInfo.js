@@ -56,7 +56,7 @@ class testInfo extends React.Component {
     }
     const updateRate = (sno, qIdx, v) => {
       const sIdx = test.refStudents.findIndex(s => s.sno === sno)
-      test.refStudents[sIdx].refQuizs[qIdx].score = v * 2
+      test.refStudents[sIdx].refQuizs[qIdx].score = (v === 1 ? 0 : v) * 2
     }
     const inRange = (from, to) => {
       return (n) => {

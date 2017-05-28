@@ -25,7 +25,7 @@ module.exports.post = (req, res) => {
   const updateData = data.map(d => ({
     _id: d.data._id,
     checkSno: d.checkSno,
-    score: d.score * 2,
+    score: (d.score === 1 ? 0 : d.score) * 2,
     sno: d.sno
   }))
   const option = { uuid, updateData, sno, data }
