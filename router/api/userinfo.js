@@ -9,7 +9,11 @@ module.exports.get = (req, res) => {
   const { id } = req.user
   Course.find({ owner_id: id })
     .then(courses => {
-      const quizNum = courses.map(c => c.quizs).reduce((p, c) => [...p, ...c]).length
+      var quizNum = 0
+      var cs = courses.map(c => c.quizs)
+      if (cs.length) {
+        quizNum = cs.reduce((p, c) => [...p, ...c]).length
+      }
       const courseNum = courses.length
       Test.find({ refTeacher: id })
         .sort({ createAt: -1 })

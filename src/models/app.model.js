@@ -34,6 +34,7 @@ export default {
       const { data } = yield call(login, payload)
       if (data.tokenLogin || data.success) {
         yield put({ type: 'loginSuccess', payload: data })
+        yield put({ type: 'userinfo/get' })
       } else {
         yield put({ type: 'loginFail', payload: data })
       }
