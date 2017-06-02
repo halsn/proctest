@@ -19,6 +19,7 @@
     "lodash": "^4.17.4",
     "mathjs": "^3.12.2",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "mongo-express": "^0.39.2",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.6",

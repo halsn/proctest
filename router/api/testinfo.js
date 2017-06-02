@@ -24,7 +24,7 @@ module.exports.get = (req, res) => {
     .then(tests => {
       const testList = tests.map(t => ({
         uuid: t.uuid,
-        createAt: moment(t.createAt).locale('zh-cn').format('MMM Do h:mm:ss a')
+        createAt: moment(t.createAt).tz('Asia/Shanghai').locale('zh-cn').format('MMM Do h:mm:ss a')
       }))
       return res.json({ success: 'get', testList })
     })
