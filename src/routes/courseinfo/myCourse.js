@@ -127,6 +127,7 @@ class myCourse extends React.Component {
         <div>
           <Spin spinning={loading}>
             <Alert message='我的课程' />
+            <br />
             <Row gutter={36}>
               {myCourses.map(c => (
                 <Col key={c._id} lg={8} style={{ marginBottom: 12 }}>

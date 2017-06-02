@@ -54,18 +54,17 @@ class quizInfo extends React.Component {
     const change = (values) => {
       this.setState({ courseId: values })
     }
-
     return (
       <div>
         <Row>
           <Col>
             <Select
               onChange={change}
-              style={{ width: 100 }}
+              style={{ width: 192 }}
               placeholder='选择课程'
             >
               {courseList.map(c => (
-                <Option key={c._id} value={c._id}>{c.name}</Option>
+                <Option key={c._id} value={c._id}>{c.name}({c.creater})</Option>
               ))}
             </Select>
             <Button onClick={get} type='primary' style={{ marginLeft: 10 }}>查询</Button>

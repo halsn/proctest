@@ -8,11 +8,16 @@ const getError = db.getError
 module.exports.get = (req, res) => {
   const { id } = req.user
   Class.find({ refTeacher: id })
+    .populate('refCourse')
+    .populate('refTeacher')
     .then(classes => {
       const classList = classes.map(c => ({
         _id: c._id,
-        name: c.name
+        name: c.name,
+        course: c.refCourse.name,
+        teacher: c.refTeacher.name
       }))
+      console.log(classList)
       return res.json({ success: 'get', classList })
     })
     .catch(err => {

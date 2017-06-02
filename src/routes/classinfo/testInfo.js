@@ -126,7 +126,7 @@ class testInfo extends React.Component {
           <Alert
             message={
               <div>
-                <p>测试链接：{testURL}</p>
+                <p>测试链接：<a rel='noopener noreferrer' target='_blank' href={testURL}>{testURL}</a></p>
                 <p>链接二维码：<a rel='noopener noreferrer' target='_blank' href={qrURL}><Icon type='qrcode' /></a></p>
               </div>
             }

@@ -97,9 +97,9 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
               <Icon type='upload' />点击选择文件
             </Button>
           </Upload>
-          <Select onChange={change} style={{ width: 122, marginTop: 10 }} placeholder='选择课程'>
+          <Select onChange={change} style={{ width: 192, marginTop: 10 }} placeholder='选择课程'>
             {courseList.map(c => (
-              <Option key={c._id} value={c._id}>{c.name}</Option>
+              <Option key={c._id} value={c._id}>{c.name}({c.creater})</Option>
             ))}
           </Select>
         </Col>

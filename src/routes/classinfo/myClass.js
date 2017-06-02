@@ -71,6 +71,7 @@ class myClass extends React.Component {
           style={{ marginBottom: 12 }}
         >添加班级</Button>
         <Alert message='我的班级' />
+        <br />
         <Modal
           title='添加班级'
           wrapClassName='vertical-center-modal'

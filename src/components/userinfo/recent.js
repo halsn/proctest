@@ -29,13 +29,13 @@ function Recent(props) {
     {
       title: '时间',
       dataIndex: 'date',
-      render: date => moment(date).locale('zh-cn').format('MMM Do h:mm:ss')
+      render: date => moment(date).locale('zh-cn').format('MMM Do h:mm:ss a')
     }, {
       title: '状态',
       dataIndex: 'status',
       render: text => <Tag color={status[text].color}>{status[text].text}</Tag>
     }, {
-      title: '所属班级',
+      title: '所在班级',
       dataIndex: 'class'
     }
   ]

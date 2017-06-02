@@ -11,7 +11,8 @@ module.exports.get = (req, res) => {
     .then(courses => {
       courses = courses.map(c => ({
         _id: c._id,
-        name: c.name
+        name: c.name,
+        creater: c.creater
       }))
       return res.json({ success: 'get', courseList: courses })
     })

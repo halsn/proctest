@@ -71,9 +71,9 @@ class pubTest extends React.Component {
       <div>
         <Row>
           <Col lg={24}>
-            <Select onChange={get} style={{ width: 100, marginRight: 10 }} placeholder='选择班级'>
+            <Select onChange={get} style={{ width: 192, marginRight: 10 }} placeholder='选择班级'>
               {classList.map(c => (
-                <Option value={c._id} key={c._id}>{c.name}</Option>
+                <Option value={c._id} key={c._id}>{c.name}({c.course})</Option>
               ))}
             </Select>
             <Button onClick={post} type='primary'>发布</Button>
@@ -86,10 +86,15 @@ class pubTest extends React.Component {
             <Spin spinning={loading}>
               <Col lg={24} style={{ marginTop: 10 }}>
                 <Alert message={`单选题总数：${maxSingleNum}`} />
+                <br />
                 <Alert message={`多选题总数：${maxMultiNum}`} />
+                <br />
                 <Alert message={`判断题总数：${maxJudgeNum}`} />
+                <br />
                 <Alert message={`问答题总数：${maxAskNum}`} />
+                <br />
                 <Alert message={`学生总人数：${studentsCount}`} />
+                <br />
               </Col>
               <Col style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                 <p style={{ width: 80 }}>截至时间：</p>

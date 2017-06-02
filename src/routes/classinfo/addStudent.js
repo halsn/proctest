@@ -33,7 +33,6 @@ class addStudent extends React.Component {
             return true
           }
         })
-        console.log(sheetData)
         const source = sheetData.map((el, idx) => ({
           key: idx,
           name: el.姓名,
@@ -94,12 +93,12 @@ class addStudent extends React.Component {
         <Row style={{ marginTop: 12 }}>
           <Col>
             <Select
-              style={{ width: 122 }}
+              style={{ width: 198 }}
               placeholder='选择班级'
               onChange={change}
             >
               {classList.map(c => (
-                <Option key={c._id} value={c._id}>{c.name}</Option>
+                <Option key={c._id} value={c._id}>{c.name}({c.course})</Option>
               ))}
             </Select>
           </Col>

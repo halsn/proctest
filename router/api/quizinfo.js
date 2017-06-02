@@ -13,7 +13,8 @@ module.exports.get = (req, res) => {
       var quizList = []
       const courseList = courses.map(c => ({
         _id: c._id,
-        name: c.name
+        name: c.name,
+        creater: c.creater
       }))
       if (courseId) {
         quizList = courses.find(c => String(c._id) === String(courseId)).quizs

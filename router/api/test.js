@@ -28,10 +28,14 @@ module.exports.get = (req, res) => {
   function getClassList(option) {
     const { id } = option
     return Class.find({ refTeacher: id })
+      .populate('refCourse')
+      .populate('refTeacher')
       .then(classes => {
         const classList = classes.map(c => ({
           _id: c._id,
-          name: c.name
+          name: c.name,
+          course: c.refCourse.name,
+          teacher: c.refTeacher.name
         }))
         option = _.assign({ classList }, option)
         return Promise.resolve(option)
