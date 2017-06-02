@@ -49,10 +49,8 @@ class testInfo extends React.Component {
     const testURL = `http://${window.location.host}/test?uuid=${this.state.uuid}`
     const qrURL = `http://${window.location.host}/api/qr?url=${testURL}`
     const postCheck = () => {
-      const askQuizs = test.refStudents.map(s => s.refQuizs).reduce((p, c) => [...p, ...c]).filter(q => q.genre === '问答题')
-      if (askQuizs.every(q => q.score !== 0)) {
-        dispatch({ type: 'testinfo/putCheck', payload: { test } })
-      }
+      // const askQuizs = test.refStudents.map(s => s.refQuizs).reduce((p, c) => [...p, ...c]).filter(q => q.genre === '问答题')
+      dispatch({ type: 'testinfo/putCheck', payload: { test } })
     }
     const updateRate = (sno, qIdx, v) => {
       const sIdx = test.refStudents.findIndex(s => s.sno === sno)
