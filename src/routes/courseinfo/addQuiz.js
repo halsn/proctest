@@ -89,7 +89,9 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
   return (
     <div>
       <Alert showIcon message={<span>录入格式请参考下载文件，<a href='/quiz.xlsx'>点击下载文件</a></span>} />
+      <br />
       <Alert showIcon type='warning' message='注意：录入时，习题集已有的习题会自动过滤，没有的习题会添加到习题集中，录入成功后请注意查看' />
+      <br />
       <Row type='flex'>
         <Col style={{ width: 134 }}>
           <Upload beforeUpload={read} showUploadList accept='.xlsx'>

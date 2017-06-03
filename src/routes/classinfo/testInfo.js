@@ -168,6 +168,7 @@ class testInfo extends React.Component {
                 <Alert message='当前阶段：确认未批改习题' />
                 <Button onClick={postCheck} type='primary'>提交</Button>
               </Col>
+              <br />
               <Col lg={24}>
                 {unCheckedStudents.map(s => (
                   <Collapse key={s.no} bordered={false}>

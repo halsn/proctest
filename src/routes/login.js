@@ -21,7 +21,6 @@ const login = ({
       onOk(values)
     })
   }
-
   return (
     <div className={styles.form}>
       <div className={styles.logo}>
@@ -40,7 +39,7 @@ const login = ({
                 message: '邮箱格式错误'
               }
             ]
-          })(<Input size='large' addonBefore={<Icon type='mail' />} onPressEnter={handleOk} placeholder='邮箱' />)}
+          })(<Input style={{ width: 222 }} size='large' addonBefore={<Icon type='mail' />} onPressEnter={handleOk} placeholder='邮箱' />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('userpass', {
@@ -56,7 +55,7 @@ const login = ({
                 message: '密码最少6位'
               }
             ]
-          })(<Input size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='密码' />)}
+          })(<Input size='large' style={{ width: 222 }} addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='密码' />)}
         </FormItem>
         <Row>
           <Button type='primary' size='large' onClick={handleOk} loading={loading}>

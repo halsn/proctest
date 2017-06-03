@@ -77,7 +77,9 @@ class addStudent extends React.Component {
     return (
       <div>
         <Alert showIcon message={<span>录入格式请参考下载文件，<a href='/student.xlsx'>点击下载文件</a></span>} />
+        <br />
         <Alert showIcon type='warning' message='注意：学生名单以最后一次录入为准' />
+        <br />
         <Row type='flex'>
           <Col style={{ width: 140 }}>
             <Upload beforeUpload={read} showUploadList accept='.xlsx'>

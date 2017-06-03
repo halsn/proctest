@@ -40,7 +40,7 @@ const signup = ({
                 message: '邮箱格式错误'
               }
             ]
-          })(<Input size='large' addonBefore={<Icon type='mail' />} onPressEnter={handleOk} placeholder='邮箱' />)}
+          })(<Input style={{ width: 222 }} size='large' addonBefore={<Icon type='mail' />} onPressEnter={handleOk} placeholder='邮箱' />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('userpass', {
@@ -56,7 +56,7 @@ const signup = ({
                 message: '密码最少6位'
               }
             ]
-          })(<Input size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='密码' />)}
+          })(<Input style={{ width: 222 }} size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='密码' />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('userckps', {
@@ -66,7 +66,7 @@ const signup = ({
                 message: '请填写密码'
               }
             ]
-          })(<Input size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='确认密码' />)}
+          })(<Input style={{ width: 222 }} size='large' addonBefore={<Icon type='lock' />} type='password' onPressEnter={handleOk} placeholder='确认密码' />)}
         </FormItem>
         <Row>
           <Button type='primary' size='large' onClick={handleOk} loading={loading}>
