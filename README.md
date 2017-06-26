@@ -9,4 +9,4 @@ docker-compose up -d
 ```
 
 ### Tips
-可以通过[play-with-docker](https://play-with-docker.com)快速搭建应用
+可以通过[play-with-docker](http://play-with-docker.com)快速搭建应用
