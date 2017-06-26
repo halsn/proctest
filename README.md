@@ -7,3 +7,6 @@
 git clone https://github.com/halsn/proctest && cd proctest
 docker-compose up -d
 ```
+
+### Tips
+可以通过[play-with-docker](www.play-with-docker.com)快速搭建应用
