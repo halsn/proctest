@@ -4,9 +4,9 @@
 ### 使用
 
 ```bash
-git clone https://github.com/halsn/proctest && cd proctest
-docker-compose up -d
+$ git clone https://github.com/halsn/proctest && cd proctest
+$ docker-compose up -d
 ```
 
 ### Tips
-可以通过[play-with-docker](http://play-with-docker.com)快速搭建应用
+鉴于国内拉取Docker镜像的速度，可以通过[play-with-docker](http://play-with-docker.com)快速搭建应用
