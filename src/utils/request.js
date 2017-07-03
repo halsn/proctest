@@ -1,6 +1,6 @@
 import fetch from 'axios'
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
     return response
   }
@@ -20,7 +20,7 @@ function checkStatus(response) {
 
 export const axios = fetch
 
-export async function request(url, options) {
+export async function request (url, options) {
   const response = await fetch(url, options)
 
   checkStatus(response)

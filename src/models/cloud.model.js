@@ -9,7 +9,7 @@ export default {
   namespace: 'cloud',
   subscriptions: {
     // { dispatch, history }
-    setup({ dispatch, history }) {
+    setup ({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname === '/cloud') {
           const token = localStorage.getItem('jwttoken')
@@ -27,7 +27,7 @@ export default {
     selectedRowKeys: []
   },
   effects: {
-    *put({ payload }, { call, put: dispatch }) {
+    * put ({ payload }, { call, put: dispatch }) {
       const { data } = yield call(put, payload)
       if (data.success) {
         message.success(data.success, ERROR_MSG_DURATION)
@@ -36,7 +36,7 @@ export default {
         message.error(data.error, ERROR_MSG_DURATION)
       }
     },
-    *get({ payload }, { call, put }) {
+    * get ({ payload }, { call, put }) {
       const { data } = yield call(get, payload)
       // { select, call, put } 拿到当前model state
       // const foo = yield select(({ cloud }) => cloud)
@@ -49,13 +49,13 @@ export default {
     }
   },
   reducers: {
-    select(state, { selectedRowKeys }) {
+    select (state, { selectedRowKeys }) {
       return {
         ...state,
         selectedRowKeys
       }
     },
-    search(state, { keyword }) {
+    search (state, { keyword }) {
       const { courseList } = state
       let displayData
       if (!keyword) {
@@ -69,7 +69,7 @@ export default {
         selectedRowKeys: []
       }
     },
-    getSuccess(state, { data }) {
+    getSuccess (state, { data }) {
       let { courseList } = data
       courseList = courseList.map(c => ({ ...c, key: c._id }))
       return {
@@ -79,7 +79,7 @@ export default {
         selectedRowKeys: []
       }
     },
-    getFail(state, { data }) {
+    getFail (state, { data }) {
       message.error(data.error, ERROR_MSG_DURATION)
       return {
         ...state

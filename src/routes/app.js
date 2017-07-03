@@ -7,16 +7,16 @@ import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
 import Sider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
-import { classnames, didmount } from '../utils'
+import { classnames } from '../utils'
 import '../components/layout/common.less'
 
-function App({ history, children, location, dispatch, app, loading }) {
+function App ({ history, children, location, dispatch, app, loading }) {
   const { showLogin, showSignup, username, siderFold, darkTheme, isNavbar, menuPopoverVisible } = app
 
   const loginProps = {
     loading,
     dispatch,
-    onOk(data) {
+    onOk (data) {
       dispatch({ type: 'app/login', payload: data })
     }
   }
@@ -24,7 +24,7 @@ function App({ history, children, location, dispatch, app, loading }) {
   const signupProps = {
     loading,
     dispatch,
-    onOk(data) {
+    onOk (data) {
       dispatch({ type: 'app/signup', payload: data })
     }
   }
@@ -35,13 +35,13 @@ function App({ history, children, location, dispatch, app, loading }) {
     location,
     isNavbar,
     menuPopoverVisible,
-    switchMenuPopover() {
+    switchMenuPopover () {
       dispatch({ type: 'app/switchMenuPopver' })
     },
-    logout() {
+    logout () {
       dispatch({ type: 'app/logout', history })
     },
-    switchSider() {
+    switchSider () {
       dispatch({ type: 'app/switchSider' })
     }
   }
@@ -50,7 +50,7 @@ function App({ history, children, location, dispatch, app, loading }) {
     siderFold,
     darkTheme,
     location,
-    changeTheme() {
+    changeTheme () {
       dispatch({ type: 'app/changeTheme' })
     }
   }
@@ -88,4 +88,4 @@ function App({ history, children, location, dispatch, app, loading }) {
   }
 }
 
-export default connect(({ app, loading }) => ({ app, loading: loading.global }))(didmount(App))
+export default connect(({ app, loading }) => ({ app, loading: loading.global }))(App)

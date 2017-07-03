@@ -1,10 +1,9 @@
-/* global localStorage document window */
+/* global document window */
 import React from 'react'
 import { connect } from 'dva'
 import { Spin, Row, Col, Select, Table, Button } from 'antd'
 import Search from '../components/courseinfo/search'
 import styles from '../components/courseinfo/list.less'
-import { didmount } from '../utils'
 
 const Option = Select.Option
 
@@ -29,11 +28,7 @@ const columns = [
 ]
 
 class Cloud extends React.Component {
-  constructor(props) {
-    super(props)
-    didmount(this)
-  }
-  render() {
+  render () {
     const { loading, dispatch, app, cloud } = this.props
     const { id } = app
     const { displayData, courseList, selectedRowKeys } = cloud

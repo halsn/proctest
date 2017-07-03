@@ -1,6 +1,6 @@
 import { request } from '../utils'
 
-export function get(params) {
+export function get (params) {
   return request('/api/cloud', {
     method: 'get',
     headers: {
@@ -10,7 +10,7 @@ export function get(params) {
   })
 }
 
-export function del(params) {
+export function del (params) {
   return request('/api/cloud', {
     method: 'delete',
     headers: {
@@ -19,7 +19,7 @@ export function del(params) {
     params
   })
 }
-export function post(data) {
+export function post (data) {
   return request('/api/cloud', {
     method: 'post',
     headers: {
@@ -29,7 +29,7 @@ export function post(data) {
   })
 }
 
-export function put(data) {
+export function put (data) {
   return request('/api/cloud', {
     method: 'put',
     headers: {

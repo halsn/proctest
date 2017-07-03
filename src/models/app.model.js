@@ -19,7 +19,7 @@ export default {
     isNavbar: document.body.clientWidth < 769
   },
   subscriptions: {
-    setup({ dispatch }) {
+    setup ({ dispatch }) {
       window.onresize = () => dispatch({ type: 'changeNavbar' })
       const token = localStorage.getItem('jwttoken')
       if (token) {
@@ -30,7 +30,7 @@ export default {
     }
   },
   effects: {
-    *login({ history, payload }, { call, put }) {
+    * login ({ history, payload }, { call, put }) {
       const { data } = yield call(login, payload)
       if (data.tokenLogin || data.success) {
         yield put({ type: 'loginSuccess', payload: data })
@@ -46,7 +46,7 @@ export default {
         yield put({ type: 'loginFail', payload: data })
       }
     },
-    *signup({ payload }, { call, put }) {
+    * signup ({ payload }, { call, put }) {
       const { data } = yield call(signup, payload)
       if (data.success) {
         yield put({ type: 'signupSuccess', payload: data })
@@ -54,44 +54,44 @@ export default {
         yield put({ type: 'signupFail', payload: data })
       }
     },
-    *logout({ history }, { put }) {
+    * logout ({ history }, { put }) {
       localStorage.removeItem('jwttoken')
       yield history.push('/')
       yield put({ type: 'showLogin' })
     },
-    *switchSider({ payload }, { put }) {
+    * switchSider ({ payload }, { put }) {
       yield put({ type: 'handleSwitchSider' })
     },
-    *changeTheme({ payload }, { put }) {
+    * changeTheme ({ payload }, { put }) {
       yield put({ type: 'handleChangeTheme' })
     },
-    *changeNavbar({ payload }, { put }) {
+    * changeNavbar ({ payload }, { put }) {
       if (document.body.clientWidth < 769) {
         yield put({ type: 'showNavbar' })
       } else {
         yield put({ type: 'hideNavbar' })
       }
     },
-    *switchMenuPopver({ payload }, { put }) {
+    * switchMenuPopver ({ payload }, { put }) {
       yield put({ type: 'handleSwitchMenuPopver' })
     }
   },
   reducers: {
-    showLogin(state) {
+    showLogin (state) {
       return {
         ...state,
         showLogin: true,
         showSignup: false
       }
     },
-    showSignup(state) {
+    showSignup (state) {
       return {
         ...state,
         showSignup: true,
         showLogin: false
       }
     },
-    loginSuccess(state, { payload }) {
+    loginSuccess (state, { payload }) {
       if (payload.token) {
         localStorage.setItem('jwttoken', payload.token)
       } else {
@@ -106,7 +106,7 @@ export default {
         showSignup: false
       }
     },
-    loginFail(state, { payload }) {
+    loginFail (state, { payload }) {
       if (payload.tokenFail) {
         message.error(payload.tokenFail, ERROR_MSG_DURATION)
         localStorage.setItem('jwttoken', '')
@@ -118,7 +118,7 @@ export default {
         showLogin: true
       }
     },
-    signupSuccess(state, { payload }) {
+    signupSuccess (state, { payload }) {
       message.success(payload.success, ERROR_MSG_DURATION)
       return {
         ...state,
@@ -126,40 +126,40 @@ export default {
         showLogin: true
       }
     },
-    signupFail(state, { payload }) {
+    signupFail (state, { payload }) {
       message.error(payload.error, ERROR_MSG_DURATION)
       return {
         ...state,
         showSignup: true
       }
     },
-    handleSwitchSider(state) {
+    handleSwitchSider (state) {
       localStorage.setItem('antdAdminSiderFold', !state.siderFold)
       return {
         ...state,
         siderFold: !state.siderFold
       }
     },
-    handleChangeTheme(state) {
+    handleChangeTheme (state) {
       localStorage.setItem('antdAdminDarkTheme', !state.darkTheme)
       return {
         ...state,
         darkTheme: !state.darkTheme
       }
     },
-    showNavbar(state) {
+    showNavbar (state) {
       return {
         ...state,
         isNavbar: true
       }
     },
-    hideNavbar(state) {
+    hideNavbar (state) {
       return {
         ...state,
         isNavbar: false
       }
     },
-    handleSwitchMenuPopver(state) {
+    handleSwitchMenuPopver (state) {
       return {
         ...state,
         menuPopoverVisible: !state.menuPopoverVisible

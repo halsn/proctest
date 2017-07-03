@@ -1,19 +1,17 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Alert, Popconfirm, Spin, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
-import { didmount } from '../../utils'
 
 const FormItem = Form.Item
 
 class myCourse extends React.Component {
-  constructor() {
+  constructor () {
     super()
-    didmount(this)
+    this.state = {
+      updateCourse: {}
+    }
   }
-  state = {
-    updateCourse: {}
-  }
-  render() {
+  render () {
     const { setFieldsValue, getFieldDecorator, validateFieldsAndScroll } = this.props.form
     const { mycourse, dispatch, loading } = this.props
     const { myCourses, otherCourses, showModal, showUpdateModal } = mycourse

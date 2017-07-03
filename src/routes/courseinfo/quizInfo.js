@@ -1,19 +1,17 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Spin, Button, Table, Row, Col, Select } from 'antd'
-import { didmount } from '../../utils'
 
 const Option = Select.Option
 
 class quizInfo extends React.Component {
-  constructor() {
+  constructor () {
     super()
-    didmount(this)
+    this.state = {
+      courseId: ''
+    }
   }
-  state = {
-    courseId: ''
-  }
-  render() {
+  render () {
     const { quizinfo, loading, dispatch } = this.props
     const { courseList, quizList } = quizinfo
     const dataSource = quizList.map(q => ({

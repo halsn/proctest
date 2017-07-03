@@ -1,7 +1,6 @@
 import React from 'react'
 import { Icon } from 'antd'
 import styles from './error.less'
-import { didmount } from '../utils'
 
 const Error = () => <div className='content-inner'>
   <div className={styles.error}>
@@ -10,4 +9,4 @@ const Error = () => <div className='content-inner'>
   </div>
 </div>
 
-export default didmount(Error)
+export default Error

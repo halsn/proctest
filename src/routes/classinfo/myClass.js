@@ -2,23 +2,20 @@ import React from 'react'
 import { connect } from 'dva'
 import { Popconfirm, Alert, Spin, Select, Input, Form, Modal, Button, Card, Row, Col } from 'antd'
 import is from 'is_js'
-import { didmount } from '../../utils'
 
 const FormItem = Form.Item
 const Option = Select.Option
-
 class myClass extends React.Component {
-  constructor() {
+  constructor () {
     super()
-    didmount(this)
+    this.state = {
+      modalVisible: false,
+      currentTerm: '',
+      currentCourse: '',
+      updateClass: {}
+    }
   }
-  state = {
-    modalVisible: false,
-    currentTerm: '',
-    currentCourse: '',
-    updateClass: {}
-  }
-  render() {
+  render () {
     const { setFieldsValue, getFieldDecorator, validateFieldsAndScroll } = this.props.form
     const { myclass, dispatch, loading } = this.props
     const { classList, courseList, termList, showModal, showUpdateModal } = myclass

@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import ReactAnimatedWeather from 'react-animated-weather'
 import { Spin, Row, Col, Card } from 'antd'
 import styles from './userinfo.less'
-import { didmount, color } from '../utils'
+import { color } from '../utils'
 import NumberCard from '../components/userinfo/numberCard'
 import Weather from '../components/userinfo/weather'
 import Recent from '../components/userinfo/recent'
@@ -52,4 +52,4 @@ const Userinfo = ({ loading, userinfo }) => {
   )
 }
 
-export default connect(({ userinfo, loading }) => ({ userinfo, loading: loading.global }))(didmount(Userinfo))
+export default connect(({ userinfo, loading }) => ({ userinfo, loading: loading.global }))(Userinfo)

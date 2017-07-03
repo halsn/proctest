@@ -3,16 +3,11 @@ import React from 'react'
 import * as XLSX from 'ts-xlsx'
 import { connect } from 'dva'
 import { Alert, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
-import { didmount } from '../../utils'
 
 const Option = Select.Option
 
 class addStudent extends React.Component {
-  constructor() {
-    super()
-    didmount(this)
-  }
-  render() {
+  render () {
     const { dispatch, addstudent, loading } = this.props
     const { students, classList, selectClass } = addstudent
     const read = file => {
@@ -23,7 +18,7 @@ class addStudent extends React.Component {
         const workbook = XLSX.read(data, { type: 'binary' })
         const first_sheet_name = workbook.SheetNames[0]
         const first_sheet = workbook.Sheets[first_sheet_name]
-        //用于过滤不合法元素以及重复元素
+        // 用于过滤不合法元素以及重复元素
         const filterBump = []
         const sheetData = XLSX.utils.sheet_to_json(first_sheet).filter(el => {
           if (filterBump.indexOf(el.学号) !== -1) return false

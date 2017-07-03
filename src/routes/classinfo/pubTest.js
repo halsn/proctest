@@ -2,27 +2,25 @@ import React from 'react'
 import is from 'is_js'
 import { connect } from 'dva'
 import { DatePicker, Alert, Spin, Slider, Button, Row, Col, Select } from 'antd'
-import { didmount } from '../../utils'
 
 const Option = Select.Option
 
 class pubTest extends React.Component {
-  constructor() {
+  constructor () {
     super()
-    didmount(this)
+    this.state = {
+      singleNum: 0,
+      multiNum: 0,
+      judgeNum: 0,
+      askNum: 0,
+      correctNum: 0,
+      answerTime: 0,
+      expireTime: 0,
+      curClass: null,
+      postAt: null
+    }
   }
-  state = {
-    singleNum: 0,
-    multiNum: 0,
-    judgeNum: 0,
-    askNum: 0,
-    correctNum: 0,
-    answerTime: 0,
-    expireTime: 0,
-    curClass: null,
-    postAt: null
-  }
-  render() {
+  render () {
     var { curClass, singleNum, multiNum, judgeNum, askNum, answerTime, expireTime } = this.state
     const { pubtest, dispatch, loading } = this.props
     const { studentsCount, classList, maxSingleNum, maxMultiNum, maxJudgeNum, maxAskNum } = pubtest

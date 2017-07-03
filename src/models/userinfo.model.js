@@ -9,7 +9,7 @@ export default {
   namespace: 'userinfo',
   subscriptions: {
     // { dispatch, history }
-    setup({ dispatch, history }) {
+    setup ({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname === '/userinfo') {
           const token = localStorage.getItem('jwttoken')
@@ -31,7 +31,7 @@ export default {
     data: []
   },
   effects: {
-    *get({ payload }, { call, put }) {
+    * get ({ payload }, { call, put }) {
       const { data } = yield call(get, payload)
       if (data.success) {
         yield put({ type: 'getSuccess', data })
@@ -41,13 +41,13 @@ export default {
     }
   },
   reducers: {
-    getSuccess(state, { data }) {
+    getSuccess (state, { data }) {
       return {
         ...state,
         ...data
       }
     },
-    getFail(state, { data }) {
+    getFail (state, { data }) {
       message.error(data.error, ERROR_MSG_DURATION)
       return {
         ...state

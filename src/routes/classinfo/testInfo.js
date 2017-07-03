@@ -3,20 +3,18 @@ import React from 'react'
 import { connect } from 'dva'
 import { Table, Spin, Alert, Icon, Button, Rate, Collapse, DatePicker, Row, Col, Select } from 'antd'
 import Completed from '../../components/userinfo/completed.js'
-import { didmount } from '../../utils'
 
 const Option = Select.Option
 const Panel = Collapse.Panel
 
 class testInfo extends React.Component {
-  constructor() {
+  constructor () {
     super()
-    didmount(this)
+    this.state = {
+      uuid: ''
+    }
   }
-  state = {
-    uuid: ''
-  }
-  render() {
+  render () {
     const { dispatch, testinfo, loading } = this.props
     const { testList, test } = testinfo
     const { stage, refStudents } = test

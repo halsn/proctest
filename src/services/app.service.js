@@ -1,6 +1,6 @@
 import { request } from '../utils'
 
-export function login(data) {
+export function login (data) {
   return request('/api/login', {
     method: 'post',
     headers: {
@@ -10,7 +10,7 @@ export function login(data) {
   })
 }
 
-export function signup(data) {
+export function signup (data) {
   return request('/api/signup', {
     method: 'post',
     headers: {

@@ -13,7 +13,7 @@ const login = ({
   },
   dispatch
 }) => {
-  function handleOk() {
+  function handleOk () {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return

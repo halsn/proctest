@@ -3,7 +3,6 @@ import React from 'react'
 import * as XLSX from 'ts-xlsx'
 import { connect } from 'dva'
 import { Alert, Spin, Select, Row, Col, Upload, Button, Icon, Table } from 'antd'
-import { didmount } from '../../utils'
 
 const Option = Select.Option
 
@@ -17,7 +16,7 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
       const workbook = XLSX.read(data, { type: 'binary' })
       const first_sheet_name = workbook.SheetNames[0]
       const first_sheet = workbook.Sheets[first_sheet_name]
-      //用于过滤重复题目
+      // 用于过滤重复题目
       const filterBump = []
       const sheetData = XLSX.utils.sheet_to_json(first_sheet).filter(el => {
         if (filterBump.indexOf(el.题目) !== -1) return false
@@ -126,4 +125,4 @@ const addQuiz = ({ loading, addquiz, dispatch }) => {
   )
 }
 
-export default connect(({ addquiz, loading }) => ({ addquiz, loading: loading.global }))(didmount(addQuiz))
+export default connect(({ addquiz, loading }) => ({ addquiz, loading: loading.global }))(addQuiz)
