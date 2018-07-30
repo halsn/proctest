@@ -3,6 +3,6 @@ RUN mkdir -p /src
 WORKDIR /src
 COPY . /src
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN npm i --prod
+# RUN npm i
 EXPOSE 5000
 ENTRYPOINT node app.js
